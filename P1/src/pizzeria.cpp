@@ -1,5 +1,7 @@
 #include "pizzeria.h"
 
+#define N_PEDIDOS_PASO 10
+
 pizzeria::pizzeria(){}
 
 pizzeria::~pizzeria(){}
@@ -33,6 +35,54 @@ void pizzeria::generarPedidos(int numero){
     }
 }
 
+void pizzeria::ejecutarPasoEjecucion(){
+    Pedido p;
+    int contador = 0;
+    while(!cocina.es_vacia() && contador < N_PEDIDOS_PASO){
+        p = cocina.inicio();
+        p.estado = "Expedicion";
+        switch(p.zona_reparto){
+            case NORTE:
+                expedicion[0].encolar(p);
+                break;
+            case SUR:
+                expedicion[1].encolar(p);
+                break;
+            case ESTE:
+                expedicion[2].encolar(p);
+                break;
+            case OESTE:
+                expedicion[3].encolar(p);
+                break;
+        }
+        cocina.desencolar();
+        contador++;
+    }
+
+    contador = 0;
+    while(!preparacion_especial.es_vacia() && contador < N_PEDIDOS_PASO){
+        p = preparacion_especial.inicio();
+        p.estado = "Cocina";
+        cocina.encolar(p);
+        preparacion_especial.desencolar();
+        contador++;
+    }
+
+    contador = 0;
+    while(!pedidos.es_vacia() && contador < N_PEDIDOS_PASO){
+        p = pedidos.inicio();
+        if(p.personalizada){
+            p.estado = "Preparacion especial";
+            preparacion_especial.encolar(p);
+        } else{
+            p.estado = "Cocina";
+            cocina.encolar(p);
+        }
+        pedidos.desencolar();
+        contador++;
+    }
+}
+
 void pizzeria::mostrar(){
     cout << "------------------------------------------------------Pedidos-----------------------------------------------------" << endl;
     pedidos.mostrar(); cout << endl;
@@ -40,14 +90,16 @@ void pizzeria::mostrar(){
     preparacion_especial.mostrar(); cout << endl;
     cout << "------------------------------------------------------Cocina------------------------------------------------------" << endl;
     cocina.mostrar(); cout << endl;
-    cout << "-------------------------------------------------Expedicion-Norte-------------------------------------------------" << endl;
-    expedicion_norte.mostrar(); cout << endl;
-    cout << "--------------------------------------------------Expedicion-Sur--------------------------------------------------" << endl;
-    expedicion_sur.mostrar(); cout << endl;
-    cout << "--------------------------------------------------Expedicion-Este-------------------------------------------------" << endl;
-    expedicion_este.mostrar(); cout << endl;
-    cout << "-------------------------------------------------Expedicion-Oeste-------------------------------------------------" << endl;
-    expedicion_oeste.mostrar(); cout << endl;
+    cout << "----------------------------------------------------Expedicion----------------------------------------------------" << endl;
+    cout << "NORTE: " << endl;
+    expedicion[0].mostrar(); cout << endl;
+    cout << "SUR: " << endl;
+    expedicion[1].mostrar(); cout << endl;
+    cout << "ESTE: " << endl;
+    expedicion[2].mostrar(); cout << endl;
+    cout << "OESTE: " << endl;
+    expedicion[3].mostrar(); cout << endl;
+
 }
 
 /*#include "pizzeria.h"

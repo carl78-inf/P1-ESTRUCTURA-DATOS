@@ -3,21 +3,20 @@
 
 #include <Cola.h>
 
+#define ZONAS 4
 
 class pizzeria{
     private:
         Cola pedidos;
         Cola preparacion_especial;
         Cola cocina;
-        Cola expedicion_norte;
-        Cola expedicion_sur;
-        Cola expedicion_este;
-        Cola expedicion_oeste;
+        Cola expedicion[ZONAS];
     public:
         pizzeria();
         virtual ~pizzeria();
         bool idYaEnPedidos(string id);
         void generarPedidos(int numero);
+        void ejecutarPasoEjecucion();
         void mostrar();
 };
 

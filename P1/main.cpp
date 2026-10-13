@@ -11,7 +11,7 @@ int main(){
     int option;
     int n;
 
-    cout << "--- Simulación del sistema de pedidos de una pizzería ---" << endl;
+    cout << "--- Simulacion del sistema de pedidos de una pizzeria ---" << endl;
 
     do {
         cout << endl;
@@ -38,7 +38,7 @@ int main(){
                 break;
 
             case 2:
-                //cambiar esto y poner lo de pasos en la simulación
+                p.ejecutarPasoEjecucion();
                 break;
 
             case 3:
@@ -50,7 +50,7 @@ int main(){
                 break;
 
             default:
-                cout << "Opción no válida." << endl;
+                cout << "Opcion no valida." << endl;
         }
 
     } while (option != 0);
