@@ -1,0 +1,38 @@
+# depslib dependency file v1.0
+1791910277 source:c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\src\pizzeria.cpp
+	"pizzeria.h"
+	<string.h>
+	<iostream>
+	<ctime>
+	<stdlib.h>
+
+1791909207 c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\include\pizzeria.h
+	<Cola.h>
+
+1791908353 source:c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\src\cola.cpp
+	"Cola.h"
+
+1791905505 c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\include\cola.h
+	<NodoCola.h>
+
+1791905206 source:c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\src\nodocola.cpp
+	"NodoCola.h"
+
+1791905354 c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\include\nodocola.h
+	<Pedido.h>
+	<iostream>
+
+1791909532 source:c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\main.cpp
+	<iostream>
+	<pizzeria.h>
+
+1791905586 c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\include\pedido.h
+	<string>
+
+1791909771 source:c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\src\pedido.cpp
+	"Pedido.h"
+	<iostream>
+	<string.h>
+	<ctime>
+	<stdlib.h>
+

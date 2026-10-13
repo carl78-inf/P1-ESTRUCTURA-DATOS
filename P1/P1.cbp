@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -22,6 +23,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -32,7 +34,15 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/Cola.h" />
+		<Unit filename="include/NodoCola.h" />
+		<Unit filename="include/Pedido.h" />
+		<Unit filename="include/pizzeria.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/Cola.cpp" />
+		<Unit filename="src/NodoCola.cpp" />
+		<Unit filename="src/Pedido.cpp" />
+		<Unit filename="src/pizzeria.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
