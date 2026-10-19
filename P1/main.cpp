@@ -54,7 +54,7 @@ int main(){
         }
 
     } while (option != 0);
-
+    cout << "Fin";
     return 0;
 }
 
