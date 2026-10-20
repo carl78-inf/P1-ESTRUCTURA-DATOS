@@ -17,7 +17,6 @@ class Cola{
         Pedido fin();
         int get_longitud();
 
-        void print_cola();
         void mostrar();
 };
 
