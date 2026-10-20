@@ -48,12 +48,16 @@ Pedido Cola::desencolar(){
 Pedido Cola::inicio(){
     if(!es_vacia()){
         return primero->elemento;
+    } else{
+        cout << "Cola Vacia" << endl;
     }
 }
 
 Pedido Cola::fin(){
     if(!es_vacia()){
         return ultimo->elemento;
+    } else{
+        cout << "Cola Vacia" << endl;
     }
 }
 
