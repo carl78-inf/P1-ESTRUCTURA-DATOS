@@ -1,5 +1,6 @@
 # depslib dependency file v1.0
-1791917368 source:c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\src\pizzeria.cpp
+1792491410 source:c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\src\pizzeria.cpp
+	"pizzeria.h"
 	"pizzeria.h"
 	<string.h>
 	<iostream>
@@ -22,14 +23,14 @@
 	<Pedido.h>
 	<iostream>
 
-1792482920 source:c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\main.cpp
+1792491200 source:c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\main.cpp
 	<iostream>
 	<pizzeria.h>
 
 1792491376 c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\include\pedido.h
 	<string>
 
-1791909771 source:c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\src\pedido.cpp
+1792491376 source:c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\src\pedido.cpp
 	"Pedido.h"
 	<iostream>
 	<string.h>

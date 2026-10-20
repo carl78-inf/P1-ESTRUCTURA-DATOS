@@ -2,6 +2,7 @@
 #define PIZZERIA_H
 
 #include <Cola.h>
+#include <Pila.h>
 
 #define ZONAS 4
 #define CAP_CAJA 6

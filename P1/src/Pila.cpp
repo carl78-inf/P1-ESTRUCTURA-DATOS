@@ -37,12 +37,17 @@ Pedido Pila::cima_pila(){
     }
 }
 
+int Pila::get_longitud(){
+    return longitud;
+}
+
 void Pila::mostrar(){
     if(!es_vacia()){
-        cout << "[";
+        cout << "(cima)" << endl;
         for (NodoPila* aux = cima; aux != NULL; aux = aux->siguiente) {
             Pedido p = aux->elemento;
-            print_pedido(p);
+            cout << "\t";
+            print_pedido_simple(p);
             if(aux->siguiente != NULL) cout << endl;
         }
         cout << "]" << endl;
