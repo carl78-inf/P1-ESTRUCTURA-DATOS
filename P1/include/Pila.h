@@ -1,6 +1,10 @@
 #ifndef PILA_H
 #define PILA_H
+
 #include "NodoPila.h"
+#include <iostream>
+
+using namespace std;
 
 class Pila{
     private:

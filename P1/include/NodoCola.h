@@ -2,9 +2,6 @@
 #define NODOCOLA_H
 
 #include <Pedido.h>
-#include <iostream>
-
-using namespace std;
 
 class NodoCola{
     private:

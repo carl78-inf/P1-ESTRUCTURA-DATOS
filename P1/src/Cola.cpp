@@ -51,6 +51,8 @@ Pedido Cola::inicio(){
     Pedido porDefecto;
     if(!es_vacia()){
         return primero->elemento;
+    } else{
+        cout << "Cola Vacia" << endl;
     }
     return porDefecto;
 }
@@ -59,6 +61,8 @@ Pedido Cola::fin(){
     Pedido porDefecto;
     if(!es_vacia()){
         return ultimo->elemento;
+    } else{
+        cout << "Cola Vacia" << endl;
     }
     return porDefecto;
 }

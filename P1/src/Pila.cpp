@@ -1,7 +1,4 @@
 #include "Pila.h"
-#include <iostream>
-
-using namespace std;
 
 Pila::Pila(){
     cima = NULL;
@@ -24,7 +21,7 @@ void Pila::apilar(Pedido p){
 
 void Pila::desapilar(){
     NodoPila *nodo;
-    if(cima){
+    if(!es_vacia()){
         nodo = cima;
         cima = nodo->siguiente;
         delete nodo;
