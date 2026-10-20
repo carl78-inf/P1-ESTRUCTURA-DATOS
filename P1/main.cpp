@@ -23,7 +23,6 @@ int main(){
         cout << "4. Ver la caja activa de una zona" << endl;
         cout << "5. Retirar un pedido de una caja activa" << endl;
         cout << "0. Salir" << endl;
-        cout << "99.-----------------------------Pruebas" << endl;
         cout << "Seleccion(0,1,2,3,4,5): ";
 
         cin >> option;

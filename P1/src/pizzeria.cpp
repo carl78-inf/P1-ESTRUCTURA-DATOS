@@ -145,7 +145,7 @@ void pizzeria::mostrar(){
     cout << "OESTE: " << endl;
     expedicion[3].mostrar(); cout << endl;
 
-    cout << "=== CAJAS TERMICAS ===" << endl;
+    cout << "--- CAJAS TERMICAS ---" << endl;
     int total_enviadas = 0;
     for(int z = 0; z < ZONAS; z++){
         cout << "Zona " << nombreZona(z) << " -> activa: "
