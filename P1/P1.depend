@@ -51,3 +51,55 @@
 1792489940 c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\include\pila.h
 	"NodoPila.h"
 
+1792493183 source:/home/caudillo/P1-ESTRUCTURA-DATOS/P1/main.cpp
+	<iostream>
+	<pizzeria.h>
+
+1792493183 /home/caudillo/P1-ESTRUCTURA-DATOS/P1/include/pizzeria.h
+	<Cola.h>
+	<Pila.h>
+
+1792490948 /home/caudillo/P1-ESTRUCTURA-DATOS/P1/include/Cola.h
+	<NodoCola.h>
+
+1792254222 /home/caudillo/P1-ESTRUCTURA-DATOS/P1/include/NodoCola.h
+	<Pedido.h>
+	<iostream>
+
+1792493183 /home/caudillo/P1-ESTRUCTURA-DATOS/P1/include/Pedido.h
+	<string>
+
+1792493287 /home/caudillo/P1-ESTRUCTURA-DATOS/P1/include/Pila.h
+	"NodoPila.h"
+
+1792490948 /home/caudillo/P1-ESTRUCTURA-DATOS/P1/include/NodoPila.h
+	<Pedido.h>
+
+1792493311 source:/home/caudillo/P1-ESTRUCTURA-DATOS/P1/src/Cola.cpp
+	"Cola.h"
+
+1792254222 source:/home/caudillo/P1-ESTRUCTURA-DATOS/P1/src/NodoCola.cpp
+	"NodoCola.h"
+
+1792490948 source:/home/caudillo/P1-ESTRUCTURA-DATOS/P1/src/NodoPila.cpp
+	"NodoPila.h"
+
+1792493183 source:/home/caudillo/P1-ESTRUCTURA-DATOS/P1/src/Pedido.cpp
+	"Pedido.h"
+	<iostream>
+	<string.h>
+	<ctime>
+	<stdlib.h>
+
+1792493311 source:/home/caudillo/P1-ESTRUCTURA-DATOS/P1/src/Pila.cpp
+	"Pila.h"
+	<iostream>
+
+1792493182 source:/home/caudillo/P1-ESTRUCTURA-DATOS/P1/src/pizzeria.cpp
+	"pizzeria.h"
+	"pizzeria.h"
+	<string.h>
+	<iostream>
+	<ctime>
+	<stdlib.h>
+

@@ -5,6 +5,7 @@ using namespace std;
 
 Pila::Pila(){
     cima = NULL;
+    longitud = 0;
 }
 
 Pila::~Pila(){
@@ -27,16 +28,18 @@ void Pila::desapilar(){
         nodo = cima;
         cima = nodo->siguiente;
         delete nodo;
+        longitud--;
     }
-    longitud--;
 }
 
 Pedido Pila::cima_pila(){
+    Pedido porDefecto;
     if(!es_vacia()){
         return cima->elemento;
     } else{
         cout << "Pila Vacia" << endl;
     }
+    return porDefecto;
 }
 
 int Pila::get_longitud(){
@@ -54,4 +57,23 @@ void Pila::mostrar(){
         cout << "(fondo)" << endl;
 
     } else cout << "[]" << endl;
+}
+
+// Busca un pedido por su ID dentro de la pila y lo elimina.
+// Devuelve true si lo encontro (la pila no expone sus nodos al exterior).
+bool Pila::eliminar(string id){
+    NodoPila *ant = NULL;
+    NodoPila *act = cima;
+    while(act != NULL && act->elemento.id_pedido != id){
+        ant = act;
+        act = act->siguiente;
+    }
+    if(act == NULL) return false;
+
+    if(ant == NULL) cima = act->siguiente;  // era la cima
+    else ant->siguiente = act->siguiente;
+
+    delete act;
+    longitud--;
+    return true;
 }

@@ -13,6 +13,9 @@ class pizzeria{
         Cola preparacion_especial;
         Cola cocina;
         Cola expedicion[ZONAS];
+        Pila caja[ZONAS];
+        int cajas_enviadas[ZONAS];
+        int pedidos_fuera;
     public:
         pizzeria();
         virtual ~pizzeria();
@@ -20,6 +23,8 @@ class pizzeria{
         void generarPedidos(int numero);
         void ejecutarPasoEjecucion();
         void mostrar();
+        void verCajaActiva(int zona);
+        void retirarPedido(int zona, string id);
 };
 
 #endif // PIZZERIA_H

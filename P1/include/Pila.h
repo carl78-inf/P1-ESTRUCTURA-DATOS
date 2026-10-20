@@ -15,6 +15,7 @@ class Pila{
         Pedido cima_pila();
         int get_longitud();
         void mostrar();
+        bool eliminar(string id);
 };
 
 #endif // PILA_H

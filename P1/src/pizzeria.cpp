@@ -2,7 +2,29 @@
 
 #define N_PEDIDOS_PASO 10
 
-pizzeria::pizzeria(){}
+// Nombre de la zona a partir de su indice (0=Norte, 1=Sur, 2=Este, 3=Oeste)
+static string nombreZona(int i){
+    switch(i){
+        case 0: return "Norte";
+        case 1: return "Sur";
+        case 2: return "Este";
+        case 3: return "Oeste";
+    }
+    return "?";
+}
+
+// La zona del menu es 1=Norte, 2=Sur, 3=Este, 4=Oeste. Devuelve -1 si no es valida.
+static int indiceZona(int zona){
+    if(zona >= 1 && zona <= ZONAS) return zona - 1;
+    return -1;
+}
+
+pizzeria::pizzeria(){
+    pedidos_fuera = 0;
+    for(int i = 0; i < ZONAS; i++){
+        cajas_enviadas[i] = 0;
+    }
+}
 
 pizzeria::~pizzeria(){}
 
@@ -38,6 +60,29 @@ void pizzeria::generarPedidos(int numero){
 void pizzeria::ejecutarPasoEjecucion(){
     Pedido p;
     int contador = 0;
+
+    // Fase Expedicion -> Caja (solo una fase por ejecucion)
+    for(int z = 0; z < ZONAS; z++){
+        contador = 0;
+        while(!expedicion[z].es_vacia() && contador < N_PEDIDOS_PASO){
+            p = expedicion[z].inicio();
+            p.estado = "Caja";
+            caja[z].apilar(p);
+            expedicion[z].desencolar();
+            contador++;
+
+            // Caja llena: se envia a reparto y se empieza otra nueva vacia
+            if(caja[z].get_longitud() == CAP_CAJA){
+                cajas_enviadas[z]++;
+                pedidos_fuera += CAP_CAJA;
+                while(!caja[z].es_vacia()){
+                    caja[z].desapilar();
+                }
+            }
+        }
+    }
+
+    contador = 0;
     while(!cocina.es_vacia() && contador < N_PEDIDOS_PASO){
         p = cocina.inicio();
         p.estado = "Expedicion";
@@ -100,6 +145,41 @@ void pizzeria::mostrar(){
     cout << "OESTE: " << endl;
     expedicion[3].mostrar(); cout << endl;
 
+    cout << "=== CAJAS TERMICAS ===" << endl;
+    int total_enviadas = 0;
+    for(int z = 0; z < ZONAS; z++){
+        cout << "Zona " << nombreZona(z) << " -> activa: "
+             << caja[z].get_longitud() << "/" << CAP_CAJA
+             << "  enviadas: " << cajas_enviadas[z] << endl;
+        total_enviadas += cajas_enviadas[z];
+    }
+    cout << endl;
+    cout << "Total de cajas enviadas: " << total_enviadas << endl;
+    cout << "Pedidos enviados o retirados: " << pedidos_fuera << endl;
+}
+
+void pizzeria::verCajaActiva(int zona){
+    int z = indiceZona(zona);
+    if(z == -1){
+        cout << "Zona no valida." << endl;
+        return;
+    }
+    cout << "--- CAJA ACTIVA: ZONA " << nombreZona(z) << " ---" << endl;
+    caja[z].mostrar();
+}
+
+void pizzeria::retirarPedido(int zona, string id){
+    int z = indiceZona(zona);
+    if(z == -1){
+        cout << "Zona no valida." << endl;
+        return;
+    }
+    if(caja[z].eliminar(id)){
+        pedidos_fuera++;
+        cout << "Pedido " << id << " retirado de la caja de la zona " << nombreZona(z) << "." << endl;
+    } else{
+        cout << "El pedido " << id << " no esta en la caja activa de la zona " << nombreZona(z) << "." << endl;
+    }
 }
 
 /*  Pruebas de colas

@@ -26,6 +26,7 @@ void Cola::encolar(Pedido p){
 }
 
 Pedido Cola::desencolar(){
+    Pedido porDefecto;
     if(!es_vacia()){
         Pedido elemento = primero->elemento;
         NodoCola *aux = primero;
@@ -43,18 +44,23 @@ Pedido Cola::desencolar(){
         longitud--;
         return elemento;
     }
+    return porDefecto;
 }
 
 Pedido Cola::inicio(){
+    Pedido porDefecto;
     if(!es_vacia()){
         return primero->elemento;
     }
+    return porDefecto;
 }
 
 Pedido Cola::fin(){
+    Pedido porDefecto;
     if(!es_vacia()){
         return ultimo->elemento;
     }
+    return porDefecto;
 }
 
 int Cola::get_longitud(){

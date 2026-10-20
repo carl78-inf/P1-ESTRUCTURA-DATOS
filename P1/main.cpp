@@ -45,24 +45,25 @@ int main(){
                 break;
 
             case 3:
-                //Hay que cambiarlo
                 p.mostrar();
                 break;
 
             case 4:
-                cout << "Sin implementar" << endl;
+                cout << "Zona (1=Norte, 2=Sur, 3=Este, 4=Oeste): ";
+                cin >> n;
+                p.verCajaActiva(n);
                 break;
 
-            case 5:
-                cout << "Sin implementar" << endl;
-                print_pedido_simple(generarPedidoRandom());
+            case 5: {
+                string id;
+                cout << "Zona (1=Norte, 2=Sur, 3=Este, 4=Oeste): ";
+                cin >> n;
+                cout << "Identificador del pedido a retirar: ";
+                cin >> id;
+                p.retirarPedido(n, id);
                 break;
+            }
 
-            /*case 99:
-                cout << "Pruebas de Pilas" << endl;
-                Pedido p;
-                print_pedido_simple(p);
-                break;*/
 
             case 0:
                 cout << "Saliendo" << endl;
@@ -114,7 +115,7 @@ int main(){
 
 
     srand(time(NULL));
-    //Práctica
+    //Prï¿½ctica
     cout << "--- Simulacion del sistema de pedidos de una pizzeria ---" << endl;
     Cola pedidos = Cola();
     Pizzeria pizzeria;
@@ -139,7 +140,7 @@ int main(){
                     pizzeria.generarPedidos(pedidos, n);
                     cout << n << " pedidos generados." << endl;
                 } else {
-                    cout << "El número debe ser mayor que 0" << endl;
+                    cout << "El nï¿½mero debe ser mayor que 0" << endl;
                 }
                 break;
 
