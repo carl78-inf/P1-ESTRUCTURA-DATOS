@@ -89,3 +89,28 @@ void print_pedido(Pedido p){
          << ", Estado: " << p.estado << "]";
 }
 
+void print_pedido_simple(Pedido p){
+    cout << p.id_pedido << " - ";
+    switch(p.tipo_pizza){
+        case BARBACOA:
+            cout << "Barbacoa";
+            break;
+        case MARGARITA:
+            cout << "Margarita";
+            break;
+        case HAWAIANA:
+            cout << "Hawaiana";
+            break;
+        case CUATRO_QUESOS:
+            cout << "Cuatro Quesos";
+            break;
+        case VEGETAL:
+            cout << "Vegetal";
+            break;
+        case ROMANA:
+            cout << "Romana";
+            break;
+        defautl:
+            cout << "NULL";
+    }
+}

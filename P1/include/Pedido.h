@@ -27,4 +27,6 @@ bool mismoID(Pedido p1, Pedido p2);
 
 void print_pedido(Pedido p);
 
+void print_pedido_simple(Pedido p);
+
 #endif // PEDIDO_H
