@@ -25,6 +25,7 @@ class pizzeria{
         void mostrar();
         void verCajaActiva(int zona);
         void retirarPedido(int zona, string id);
+        int ocupacionCaja(int zona);
 };
 
 #endif // PIZZERIA_H

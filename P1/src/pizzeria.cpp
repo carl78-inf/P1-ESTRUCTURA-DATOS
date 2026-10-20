@@ -182,6 +182,12 @@ void pizzeria::retirarPedido(int zona, string id){
     }
 }
 
+int pizzeria::ocupacionCaja(int zona){
+    int z = indiceZona(zona);
+    if(z == -1) return 0;
+    return caja[z].get_longitud();
+}
+
 /*  Pruebas de colas
 
 #include "pizzeria.h"

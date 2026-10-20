@@ -4,75 +4,96 @@
 
 using namespace std;
 
-int main(){
+int main()
+{
     srand(time(NULL));
 
     pizzeria p;
     int option;
     int n;
 
-    cout << "--- Simulacion del sistema de pedidos de una pizzeria ---" << endl;
-
-    do {
+    do
+    {
         cout << endl;
-        cout << "|Menu de seleccion|" << endl;
-        cout << "-------------------" << endl;
-        cout << "1. Generar N pedidos" << endl;
-        cout << "2. Ejecutar un paso de simulacion" << endl;
-        cout << "3. Mostrar el estado del sistema" << endl;
-        cout << "4. Ver la caja activa de una zona" << endl;
-        cout << "5. Retirar un pedido de una caja activa" << endl;
-        cout << "0. Salir" << endl;
-        cout << "Seleccion(0,1,2,3,4,5): ";
+        cout << "+--------------------------------------------------+" << endl;
+        cout << "|          SIMULACION DE UNA PIZZERIA              |" << endl;
+        cout << "|               Sistema de pedidos                 |" << endl;
+        cout << "+--------------------------------------------------+" << endl;
+        cout << "|  1. Generar N pedidos                            |" << endl;
+        cout << "|  2. Ejecutar un paso de simulacion               |" << endl;
+        cout << "|  3. Mostrar el estado del sistema                |" << endl;
+        cout << "|  4. Ver la caja activa de una zona               |" << endl;
+        cout << "|  5. Retirar un pedido de una caja activa         |" << endl;
+        cout << "|  0. Salir                                        |" << endl;
+        cout << "+--------------------------------------------------+" << endl;
+        cout << "Seleccion > ";
 
         cin >> option;
 
-        switch (option) {
-            case 1:
-                cout << "Introduce el numero de pedidos a generar: ";
-                cin >> n;
-                if (n > 0) {
-                    p.generarPedidos(n);
-                    cout << n << " pedidos generados." << endl;
-                } else {
-                    cout << "El numero debe ser mayor que 0" << endl;
-                }
-                break;
+        switch (option)
+        {
+        case 1:
+            cout << "Introduce el numero de pedidos a generar: ";
+            cin >> n;
+            if (n > 0)
+            {
+                p.generarPedidos(n);
+                cout << n << " pedidos generados." << endl;
+            }
+            else
+            {
+                cout << "El numero debe ser mayor que 0" << endl;
+            }
+            break;
 
-            case 2:
-                p.ejecutarPasoEjecucion();
-                break;
+        case 2:
+            p.ejecutarPasoEjecucion();
+            break;
 
-            case 3:
-                p.mostrar();
-                break;
+        case 3:
+            p.mostrar();
+            break;
 
-            case 4:
-                cout << "Zona (1=Norte, 2=Sur, 3=Este, 4=Oeste): ";
-                cin >> n;
-                p.verCajaActiva(n);
-                break;
+        case 4:
+            cout << "Zona (1=Norte, 2=Sur, 3=Este, 4=Oeste): ";
+            cin >> n;
+            p.verCajaActiva(n);
+            break;
 
-            case 5: {
-                string id;
-                cout << "Zona (1=Norte, 2=Sur, 3=Este, 4=Oeste): ";
-                cin >> n;
-                cout << "Identificador del pedido a retirar: ";
-                cin >> id;
-                p.retirarPedido(n, id);
+        case 5:
+        {
+            string id;
+            cout << "Zona (1=Norte, 2=Sur, 3=Este, 4=Oeste): ";
+            cin >> n;
+            if (n < 1 || n > ZONAS)
+            {
+                cout << "Zona no valida." << endl;
                 break;
             }
 
-
-            case 0:
-                cout << "Saliendo" << endl;
+            if (p.ocupacionCaja(n) <= 0)
+            {
+                cout << "Zona sin pedidos en la caja " << endl;
                 break;
-
-            default:
-                cout << "Opcion no valida." << endl;
+            }
+            p.verCajaActiva(n);
+            cout << "Identificador del pedido a retirar: ";
+            cin >> id;
+            p.retirarPedido(n, id);
+            break;
         }
 
-    } while (option != 0);
+
+        case 0:
+            cout << "Saliendo" << endl;
+            break;
+
+        default:
+            cout << "Opcion no valida." << endl;
+        }
+
+    }
+    while (option != 0);
 
     return 0;
 }
