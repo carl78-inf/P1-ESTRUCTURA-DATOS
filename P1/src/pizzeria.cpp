@@ -102,7 +102,9 @@ void pizzeria::mostrar(){
 
 }
 
-/*#include "pizzeria.h"
+/*  Pruebas de colas
+
+#include "pizzeria.h"
 #include <string.h>
 
 #include <iostream>
