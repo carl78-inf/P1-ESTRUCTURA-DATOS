@@ -1,6 +1,10 @@
 #ifndef COLA_H
 #define COLA_H
+
 #include <NodoCola.h>
+#include <iostream>
+
+using namespace std;
 
 class Cola{
     private:
