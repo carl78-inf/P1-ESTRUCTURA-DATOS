@@ -20,6 +20,8 @@ int main(){
         cout << "1. Generar N pedidos" << endl;
         cout << "2. Ejecutar un paso de simulacion" << endl;
         cout << "3. Mostrar el estado del sistema" << endl;
+        cout << "4. Ver la caja activa de una zona" << endl;
+        cout << "5. Retirar un pedido de una caja activa" << endl;
         cout << "0. Salir" << endl;
         cout << "Seleccion(0,1,2,3): ";
 
@@ -42,7 +44,16 @@ int main(){
                 break;
 
             case 3:
+                //Hay que cambiarlo
                 p.mostrar();
+                break;
+
+            case 4:
+                cout << "Sin implementar" << endl;
+                break;
+
+            case 5:
+                cout << "Sin implementar" << endl;
                 break;
 
             case 0:

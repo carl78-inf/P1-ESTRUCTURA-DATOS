@@ -4,6 +4,7 @@
 #include <Cola.h>
 
 #define ZONAS 4
+#define CAP_CAJA 6
 
 class pizzeria{
     private:
