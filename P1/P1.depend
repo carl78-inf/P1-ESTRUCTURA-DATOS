@@ -51,31 +51,32 @@
 	"NodoPila.h"
 	<iostream>
 
-1792493183 source:/home/caudillo/P1-ESTRUCTURA-DATOS/P1/main.cpp
+1792493724 source:/home/caudillo/P1-ESTRUCTURA-DATOS/P1/main.cpp
 	<iostream>
 	<pizzeria.h>
 
-1792493183 /home/caudillo/P1-ESTRUCTURA-DATOS/P1/include/pizzeria.h
+1792493320 /home/caudillo/P1-ESTRUCTURA-DATOS/P1/include/pizzeria.h
 	<Cola.h>
 	<Pila.h>
 
-1792490948 /home/caudillo/P1-ESTRUCTURA-DATOS/P1/include/Cola.h
+1792494132 /home/caudillo/P1-ESTRUCTURA-DATOS/P1/include/Cola.h
 	<NodoCola.h>
-
-1792254222 /home/caudillo/P1-ESTRUCTURA-DATOS/P1/include/NodoCola.h
-	<Pedido.h>
 	<iostream>
+
+1792494132 /home/caudillo/P1-ESTRUCTURA-DATOS/P1/include/NodoCola.h
+	<Pedido.h>
 
 1792493183 /home/caudillo/P1-ESTRUCTURA-DATOS/P1/include/Pedido.h
 	<string>
 
-1792493287 /home/caudillo/P1-ESTRUCTURA-DATOS/P1/include/Pila.h
+1792494132 /home/caudillo/P1-ESTRUCTURA-DATOS/P1/include/Pila.h
 	"NodoPila.h"
+	<iostream>
 
 1792490948 /home/caudillo/P1-ESTRUCTURA-DATOS/P1/include/NodoPila.h
 	<Pedido.h>
 
-1792493311 source:/home/caudillo/P1-ESTRUCTURA-DATOS/P1/src/Cola.cpp
+1792494132 source:/home/caudillo/P1-ESTRUCTURA-DATOS/P1/src/Cola.cpp
 	"Cola.h"
 
 1792254222 source:/home/caudillo/P1-ESTRUCTURA-DATOS/P1/src/NodoCola.cpp
@@ -91,11 +92,10 @@
 	<ctime>
 	<stdlib.h>
 
-1792493311 source:/home/caudillo/P1-ESTRUCTURA-DATOS/P1/src/Pila.cpp
+1792494132 source:/home/caudillo/P1-ESTRUCTURA-DATOS/P1/src/Pila.cpp
 	"Pila.h"
-	<iostream>
 
-1792493182 source:/home/caudillo/P1-ESTRUCTURA-DATOS/P1/src/pizzeria.cpp
+1792494218 source:/home/caudillo/P1-ESTRUCTURA-DATOS/P1/src/pizzeria.cpp
 	"pizzeria.h"
 	"pizzeria.h"
 	<string.h>
