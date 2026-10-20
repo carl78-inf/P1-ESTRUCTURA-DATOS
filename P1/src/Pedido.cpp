@@ -32,7 +32,7 @@ Pedido generarPedidoRandom(){
     Tamano tamano[] = {GRANDE, MEDIANA};
     p.tamano = tamano[rand() % (2)];
 
-    p.personalizada = (rand() % 100) < 20;
+    p.personalizada = (rand() % 100) < PROB_PERSONALIZACION;
 
     p.estado = "Recibido";
 

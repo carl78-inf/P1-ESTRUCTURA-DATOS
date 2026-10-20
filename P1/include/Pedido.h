@@ -1,6 +1,8 @@
 #ifndef PEDIDO_H
 #define PEDIDO_H
 
+#define PROB_PERSONALIZACION 20
+
 #include <string>
 
 using namespace std;
