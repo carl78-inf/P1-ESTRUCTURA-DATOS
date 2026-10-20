@@ -23,7 +23,7 @@ int main(){
         cout << "4. Ver la caja activa de una zona" << endl;
         cout << "5. Retirar un pedido de una caja activa" << endl;
         cout << "0. Salir" << endl;
-        cout << "-1.-----------------------------Pruebas" << endl;
+        cout << "99.-----------------------------Pruebas" << endl;
         cout << "Seleccion(0,1,2,3,4,5): ";
 
         cin >> option;
@@ -55,15 +55,17 @@ int main(){
 
             case 5:
                 cout << "Sin implementar" << endl;
+                print_pedido_simple(generarPedidoRandom());
                 break;
+
+            /*case 99:
+                cout << "Pruebas de Pilas" << endl;
+                Pedido p;
+                print_pedido_simple(p);
+                break;*/
 
             case 0:
                 cout << "Saliendo" << endl;
-                break;
-
-            case -1:
-                cout << "Pruebas de Pilas" << endl;
-                Pila
                 break;
 
             default:

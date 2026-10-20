@@ -18,6 +18,7 @@ bool Pila::es_vacia(){
 void Pila::apilar(Pedido p){
     NodoPila *nuevo = new NodoPila(p, cima);
     cima = nuevo;
+    longitud++;
 }
 
 void Pila::desapilar(){
@@ -27,6 +28,7 @@ void Pila::desapilar(){
         cima = nodo->siguiente;
         delete nodo;
     }
+    longitud--;
 }
 
 Pedido Pila::cima_pila(){
@@ -47,10 +49,9 @@ void Pila::mostrar(){
         for (NodoPila* aux = cima; aux != NULL; aux = aux->siguiente) {
             Pedido p = aux->elemento;
             cout << "\t";
-            print_pedido_simple(p);
-            if(aux->siguiente != NULL) cout << endl;
+            print_pedido_simple(p); cout << endl;
         }
-        cout << "]" << endl;
+        cout << "(fondo)" << endl;
 
     } else cout << "[]" << endl;
 }
