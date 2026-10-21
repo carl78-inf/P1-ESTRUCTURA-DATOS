@@ -56,8 +56,6 @@ void Pila::mostrar(){
     } else cout << "[]" << endl;
 }
 
-// Busca un pedido por su ID dentro de la pila y lo elimina.
-// Devuelve true si lo encontro (la pila no expone sus nodos al exterior).
 bool Pila::eliminar(string id){
     NodoPila *ant = NULL;
     NodoPila *act = cima;
@@ -65,10 +63,15 @@ bool Pila::eliminar(string id){
         ant = act;
         act = act->siguiente;
     }
-    if(act == NULL) return false;
+    if(act == NULL){
+        return false;
+    }
 
-    if(ant == NULL) cima = act->siguiente;  // era la cima
-    else ant->siguiente = act->siguiente;
+    if(ant == NULL){
+            cima = act->siguiente;
+    } else{
+        ant->siguiente = act->siguiente;
+    }
 
     delete act;
     longitud--;

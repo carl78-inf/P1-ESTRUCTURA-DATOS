@@ -31,4 +31,6 @@ void print_pedido(Pedido p);
 
 void print_pedido_simple(Pedido p);
 
+void print_pedido_tabla(Pedido p);
+
 #endif // PEDIDO_H

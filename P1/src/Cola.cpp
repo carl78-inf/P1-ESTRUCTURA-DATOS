@@ -73,13 +73,11 @@ int Cola::get_longitud(){
 
 void Cola::mostrar(){
     if(!es_vacia()){
-        cout << "[";
         for (NodoCola* aux = primero; aux != NULL; aux = aux->siguiente) {
             Pedido p = aux->elemento;
-            print_pedido(p);
+            print_pedido_tabla(p);
             if(aux->siguiente != NULL) cout << endl;
         }
-        cout << "]" << endl;
 
-    } else cout << "[]" << endl;
+    } else cout << "|        |         |               |         |       |                      |                      |";
 }

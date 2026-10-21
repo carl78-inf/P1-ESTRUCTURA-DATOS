@@ -4,6 +4,7 @@
 #include <string.h>
 #include <ctime>
 #include <stdlib.h>
+#include <iomanip>
 
 using namespace std;
 
@@ -90,7 +91,7 @@ void print_pedido(Pedido p){
 }
 
 void print_pedido_simple(Pedido p){
-    cout << p.id_pedido << " - ";
+    cout << "| " << p.id_pedido << " - ";
     switch(p.tipo_pizza){
         case BARBACOA:
             cout << "Barbacoa";
@@ -113,4 +114,50 @@ void print_pedido_simple(Pedido p){
         defautl:
             cout << "NULL";
     }
+}
+
+void print_pedido_tabla(Pedido p){
+    cout << left << "| " << p.id_pedido
+         << " | " << setw(7) << p.id_cliente
+         << " | " << setw(13);
+    switch(p.tipo_pizza){
+        case BARBACOA:
+            cout << "Barbacoa";
+            break;
+        case MARGARITA:
+            cout << "Margarita";
+            break;
+        case HAWAIANA:
+            cout << "Hawaiana";
+            break;
+        case CUATRO_QUESOS:
+            cout << "Cuatro Quesos";
+            break;
+        case VEGETAL:
+            cout << "Vegetal";
+            break;
+        case ROMANA:
+            cout << "Romana";
+            break;
+        defautl:
+            cout << "NULL";
+    }
+    cout << " | " << setw(7) << (p.tamano == MEDIANA? "Mediana" : "Grande")
+         << " | " << setw(5);
+    switch(p.zona_reparto){
+        case ESTE:
+            cout << "Este";
+            break;
+        case NORTE:
+            cout << "Norte";
+            break;
+        case SUR:
+            cout << "Sur";
+            break;
+        case OESTE:
+            cout << "Oeste";
+            break;
+    }
+    cout << " | " << setw(20) << (p.personalizada ? "Si" : "No")
+         << " | " << setw(20) << p.estado << " |";
 }
