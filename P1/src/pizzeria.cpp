@@ -91,6 +91,9 @@ void pizzeria::ejecutarPasoEjecucion()
                 pedidos_fuera += CAP_CAJA;
                 while(!caja[z].es_vacia())
                 {
+                    p = caja[z].cima_pila();
+                    p.estado = "Enviado";
+                    finalizados.encolar(p);
                     caja[z].desapilar();
                 }
             }
@@ -239,15 +242,28 @@ void pizzeria::verCajaActiva(int zona)
 
 void pizzeria::retirarPedido(int zona, string id)
 {
+    Pedido p = caja[zona - 1].buscar(id);
     if(caja[zona - 1].eliminar(id))
     {
         pedidos_fuera++;
+        p.estado = "Retirado";
+        finalizados.encolar(p);
         cout << "Pedido " << id << " retirado de la caja de la zona " << nombreZona(zona - 1) << "." << endl;
     }
     else
     {
         cout << "El pedido " << id << " no esta en la caja activa de la zona " << nombreZona(zona - 1) << "." << endl;
     }
+}
+
+void pizzeria::mostrarFinalizados(){
+    cout << "\n////////////////////////////////////////////FINALIZADOS////////////////////////////////////////////" << endl;
+    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
+    cout << "| Pedido | Cliente | Tipo de Pizza | Tamaño  | Zona  | Preparacion Especial | Estado               |" << endl;
+    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
+    finalizados.mostrar();
+    cout << endl;
+    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
 }
 
 /*  Pruebas de colas

@@ -94,8 +94,23 @@ bool Pila::eliminar(string id)
     {
         ant->siguiente = act->siguiente;
     }
-
     delete act;
     longitud--;
     return true;
+}
+
+Pedido Pila::buscar(string id)
+{
+    Pedido p;
+    NodoPila *act = cima;
+    while(act != NULL && act->elemento.id_pedido != id)
+    {
+        act = act->siguiente;
+    }
+    if(act == NULL)
+    {
+        return p;
+    }
+    p = act->elemento;
+    return p;
 }

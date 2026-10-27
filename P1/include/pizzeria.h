@@ -17,6 +17,7 @@ private:
     Pila caja[ZONAS];
     int cajas_enviadas[ZONAS];
     int pedidos_fuera;
+    Cola finalizados;
 public:
     pizzeria();
     virtual ~pizzeria();
@@ -24,6 +25,7 @@ public:
     void generarPedidos(int numero);
     void ejecutarPasoEjecucion();
     void mostrar();
+    void mostrarFinalizados();
     void verCajaActiva(int zona);
     void retirarPedido(int zona, string id);
     int ocupacionCaja(int zona);

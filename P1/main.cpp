@@ -24,6 +24,7 @@ int main()
         cout << "|  3. Mostrar el estado del sistema                |" << endl;
         cout << "|  4. Ver la caja activa de una zona               |" << endl;
         cout << "|  5. Retirar un pedido de una caja activa         |" << endl;
+        cout << "|  6. Mostrar pedidos finalizados                  |" << endl;
         cout << "|  0. Salir                                        |" << endl;
         cout << "+--------------------------------------------------+" << endl;
         cout << "Seleccion > ";
@@ -93,6 +94,11 @@ int main()
             break;
         }
 
+        case 6:
+        {
+            p.mostrarFinalizados();
+            break;
+        }
 
         case 0:
             cout << "Saliendo" << endl;
