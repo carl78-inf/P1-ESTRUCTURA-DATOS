@@ -19,13 +19,6 @@ static string nombreZona(int i)
     return "?";
 }
 
-// La zona del menu es 1=Norte, 2=Sur, 3=Este, 4=Oeste. Devuelve -1 si no es valida.
-static int indiceZona(int zona)
-{
-    if(zona >= 1 && zona <= ZONAS) return zona - 1;
-    return -1;
-}
-
 pizzeria::pizzeria()
 {
     pedidos_fuera = 0;
@@ -234,42 +227,27 @@ void pizzeria::mostrar()
     cout << "Pedidos enviados o retirados: " << pedidos_fuera << endl;
 }
 
+int pizzeria::ocupacionCaja(int zona)
+{
+    return caja[zona - 1].get_longitud();
+}
+
 void pizzeria::verCajaActiva(int zona)
 {
-    int z = indiceZona(zona);
-    if(z == -1)
-    {
-        cout << "Zona no valida." << endl;
-        return;
-    }
-    cout << "--- CAJA ACTIVA: ZONA " << nombreZona(z) << " ---" << endl;
-    caja[z].mostrar();
+    caja[zona - 1].mostrar();
 }
 
 void pizzeria::retirarPedido(int zona, string id)
 {
-    int z = indiceZona(zona);
-    if(z == -1)
-    {
-        cout << "Zona no valida." << endl;
-        return;
-    }
-    if(caja[z].eliminar(id))
+    if(caja[zona - 1].eliminar(id))
     {
         pedidos_fuera++;
-        cout << "Pedido " << id << " retirado de la caja de la zona " << nombreZona(z) << "." << endl;
+        cout << "Pedido " << id << " retirado de la caja de la zona " << nombreZona(zona - 1) << "." << endl;
     }
     else
     {
-        cout << "El pedido " << id << " no esta en la caja activa de la zona " << nombreZona(z) << "." << endl;
+        cout << "El pedido " << id << " no esta en la caja activa de la zona " << nombreZona(zona - 1) << "." << endl;
     }
-}
-
-int pizzeria::ocupacionCaja(int zona)
-{
-    int z = indiceZona(zona);
-    if(z == -1) return 0;
-    return caja[z].get_longitud();
 }
 
 /*  Pruebas de colas

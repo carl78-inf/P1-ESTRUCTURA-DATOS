@@ -57,6 +57,16 @@ int main()
         case 4:
             cout << "Zona (1=Norte, 2=Sur, 3=Este, 4=Oeste): ";
             cin >> n;
+            if (n < 1 || n > ZONAS)
+            {
+                cout << "Zona no valida." << endl;
+                break;
+            }
+            if (p.ocupacionCaja(n) <= 0)
+            {
+                cout << "Zona sin pedidos en la caja " << endl;
+                break;
+            }
             p.verCajaActiva(n);
             break;
 
