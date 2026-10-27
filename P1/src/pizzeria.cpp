@@ -3,68 +3,88 @@
 #define N_PEDIDOS_PASO 10
 
 // Nombre de la zona a partir de su indice (0=Norte, 1=Sur, 2=Este, 3=Oeste)
-static string nombreZona(int i){
-    switch(i){
-        case 0: return "Norte";
-        case 1: return "Sur";
-        case 2: return "Este";
-        case 3: return "Oeste";
+static string nombreZona(int i)
+{
+    switch(i)
+    {
+    case 0:
+        return "Norte";
+    case 1:
+        return "Sur";
+    case 2:
+        return "Este";
+    case 3:
+        return "Oeste";
     }
     return "?";
 }
 
 // La zona del menu es 1=Norte, 2=Sur, 3=Este, 4=Oeste. Devuelve -1 si no es valida.
-static int indiceZona(int zona){
+static int indiceZona(int zona)
+{
     if(zona >= 1 && zona <= ZONAS) return zona - 1;
     return -1;
 }
 
-pizzeria::pizzeria(){
+pizzeria::pizzeria()
+{
     pedidos_fuera = 0;
-    for(int i = 0; i < ZONAS; i++){
+    for(int i = 0; i < ZONAS; i++)
+    {
         cajas_enviadas[i] = 0;
     }
 }
 
-pizzeria::~pizzeria(){}
+pizzeria::~pizzeria() {}
 
-bool pizzeria::idYaEnPedidos(string id){
+bool pizzeria::idYaEnPedidos(string id)
+{
     bool yaEnPedidos = false;
     Cola aux;
-    while(!yaEnPedidos && !pedidos.es_vacia()){
-        if(pedidos.inicio().id_pedido == id){
+    while(!yaEnPedidos && !pedidos.es_vacia())
+    {
+        if(pedidos.inicio().id_pedido == id)
+        {
             yaEnPedidos = true;
         }
         aux.encolar(pedidos.inicio());
         pedidos.desencolar();
     }
-    while(!aux.es_vacia()){
+    while(!aux.es_vacia())
+    {
         pedidos.encolar(aux.inicio());
         aux.desencolar();
     }
     return yaEnPedidos;
 }
 
-void pizzeria::generarPedidos(int numero){
+void pizzeria::generarPedidos(int numero)
+{
     string id;
-    for(int i = 0; i < numero; i++){
-        do{
+    for(int i = 0; i < numero; i++)
+    {
+        do
+        {
             id = generarIDRandom();
-        } while(idYaEnPedidos(id));
+        }
+        while(idYaEnPedidos(id));
         Pedido p = generarPedidoRandom();
         p.id_pedido = id;
         pedidos.encolar(p);
     }
 }
 
-void pizzeria::ejecutarPasoEjecucion(){
+void pizzeria::ejecutarPasoEjecucion()
+{
     Pedido p;
     int contador = 0;
 
     // Fase Expedicion -> Caja (solo una fase por ejecucion)
-    for(int z = 0; z < ZONAS; z++){
+    for(int z = 0; z < ZONAS; z++)
+    {
         contador = 0;
-        while(!expedicion[z].es_vacia() && contador < N_PEDIDOS_PASO){
+        while(!expedicion[z].es_vacia() && contador < N_PEDIDOS_PASO)
+        {
             p = expedicion[z].inicio();
             p.estado = "Caja";
             caja[z].apilar(p);
@@ -72,10 +92,12 @@ void pizzeria::ejecutarPasoEjecucion(){
             contador++;
 
             // Caja llena: se envia a reparto y se empieza otra nueva vacia
-            if(caja[z].get_longitud() == CAP_CAJA){
+            if(caja[z].get_longitud() == CAP_CAJA)
+            {
                 cajas_enviadas[z]++;
                 pedidos_fuera += CAP_CAJA;
-                while(!caja[z].es_vacia()){
+                while(!caja[z].es_vacia())
+                {
                     caja[z].desapilar();
                 }
             }
@@ -83,29 +105,32 @@ void pizzeria::ejecutarPasoEjecucion(){
     }
 
     contador = 0;
-    while(!cocina.es_vacia() && contador < N_PEDIDOS_PASO){
+    while(!cocina.es_vacia() && contador < N_PEDIDOS_PASO)
+    {
         p = cocina.inicio();
         p.estado = "Expedicion";
-        switch(p.zona_reparto){
-            case NORTE:
-                expedicion[0].encolar(p);
-                break;
-            case SUR:
-                expedicion[1].encolar(p);
-                break;
-            case ESTE:
-                expedicion[2].encolar(p);
-                break;
-            case OESTE:
-                expedicion[3].encolar(p);
-                break;
+        switch(p.zona_reparto)
+        {
+        case NORTE:
+            expedicion[0].encolar(p);
+            break;
+        case SUR:
+            expedicion[1].encolar(p);
+            break;
+        case ESTE:
+            expedicion[2].encolar(p);
+            break;
+        case OESTE:
+            expedicion[3].encolar(p);
+            break;
         }
         cocina.desencolar();
         contador++;
     }
 
     contador = 0;
-    while(!preparacion_especial.es_vacia() && contador < N_PEDIDOS_PASO){
+    while(!preparacion_especial.es_vacia() && contador < N_PEDIDOS_PASO)
+    {
         p = preparacion_especial.inicio();
         p.estado = "Cocina";
         cocina.encolar(p);
@@ -114,12 +139,16 @@ void pizzeria::ejecutarPasoEjecucion(){
     }
 
     contador = 0;
-    while(!pedidos.es_vacia() && contador < N_PEDIDOS_PASO){
+    while(!pedidos.es_vacia() && contador < N_PEDIDOS_PASO)
+    {
         p = pedidos.inicio();
-        if(p.personalizada){
+        if(p.personalizada)
+        {
             p.estado = "Preparacion especial";
             preparacion_especial.encolar(p);
-        } else{
+        }
+        else
+        {
             p.estado = "Cocina";
             cocina.encolar(p);
         }
@@ -128,12 +157,14 @@ void pizzeria::ejecutarPasoEjecucion(){
     }
 }
 
-void pizzeria::mostrar(){
+void pizzeria::mostrar()
+{
     cout << "\n//////////////////////////////////////////////PEDIDOS///////////////////////////////////////////////" << endl;
     cout << "+--------------------------------------------------------------------------------------------------+" << endl;
     cout << "| Pedido | Cliente | Tipo de Pizza | Tamaño  | Zona  | Preparacion Especial | Estado               |" << endl;
     cout << "+--------------------------------------------------------------------------------------------------+" << endl;
-    pedidos.mostrar(); cout << endl;
+    pedidos.mostrar();
+    cout << endl;
     cout << "+--------------------------------------------------------------------------------------------------+" << endl;
 
 
@@ -141,7 +172,8 @@ void pizzeria::mostrar(){
     cout << "+--------------------------------------------------------------------------------------------------+" << endl;
     cout << "| Pedido | Cliente | Tipo de Pizza | Tamaño  | Zona  | Preparacion Especial | Estado               |" << endl;
     cout << "+--------------------------------------------------------------------------------------------------+" << endl;
-    preparacion_especial.mostrar(); cout << endl;
+    preparacion_especial.mostrar();
+    cout << endl;
     cout << "+--------------------------------------------------------------------------------------------------+" << endl;
 
 
@@ -149,7 +181,8 @@ void pizzeria::mostrar(){
     cout << "+--------------------------------------------------------------------------------------------------+" << endl;
     cout << "| Pedido | Cliente | Tipo de Pizza | Tamaño  | Zona  | Preparacion Especial | Estado               |" << endl;
     cout << "+--------------------------------------------------------------------------------------------------+" << endl;
-    cocina.mostrar(); cout << endl;
+    cocina.mostrar();
+    cout << endl;
     cout << "+--------------------------------------------------------------------------------------------------+" << endl;
 
 
@@ -159,33 +192,38 @@ void pizzeria::mostrar(){
     cout << "+--------------------------------------------------------------------------------------------------+" << endl;
     cout << "| Pedido | Cliente | Tipo de Pizza | Tamaño  | Zona  | Preparacion Especial | Estado               |" << endl;
     cout << "+--------------------------------------------------------------------------------------------------+" << endl;
-    expedicion[0].mostrar(); cout << endl;
+    expedicion[0].mostrar();
+    cout << endl;
     cout << "+--------------------------------------------------------------------------------------------------+" << endl;
 
     cout << "\n                                                SUR" << endl;
     cout << "+--------------------------------------------------------------------------------------------------+" << endl;
     cout << "| Pedido | Cliente | Tipo de Pizza | Tamaño  | Zona  | Preparacion Especial | Estado               |" << endl;
     cout << "+--------------------------------------------------------------------------------------------------+" << endl;
-    expedicion[1].mostrar(); cout << endl;
+    expedicion[1].mostrar();
+    cout << endl;
     cout << "+--------------------------------------------------------------------------------------------------+" << endl;
 
     cout << "\n                                               ESTE" << endl;
     cout << "+--------------------------------------------------------------------------------------------------+" << endl;
     cout << "| Pedido | Cliente | Tipo de Pizza | Tamaño  | Zona  | Preparacion Especial | Estado               |" << endl;
     cout << "+--------------------------------------------------------------------------------------------------+" << endl;
-    expedicion[2].mostrar(); cout << endl;
+    expedicion[2].mostrar();
+    cout << endl;
     cout << "+--------------------------------------------------------------------------------------------------+" << endl;
 
     cout << "\n                                               OESTE" << endl;
     cout << "+--------------------------------------------------------------------------------------------------+" << endl;
     cout << "| Pedido | Cliente | Tipo de Pizza | Tamaño  | Zona  | Preparacion Especial | Estado               |" << endl;
     cout << "+--------------------------------------------------------------------------------------------------+" << endl;
-    expedicion[3].mostrar(); cout << endl;
+    expedicion[3].mostrar();
+    cout << endl;
     cout << "+--------------------------------------------------------------------------------------------------+" << endl;
 
     cout << "\n\n--- CAJAS TERMICAS ---" << endl;
     int total_enviadas = 0;
-    for(int z = 0; z < ZONAS; z++){
+    for(int z = 0; z < ZONAS; z++)
+    {
         cout << "Zona " << nombreZona(z) << " -> activa: "
              << caja[z].get_longitud() << "/" << CAP_CAJA
              << "  enviadas: " << cajas_enviadas[z] << endl;
@@ -196,9 +234,11 @@ void pizzeria::mostrar(){
     cout << "Pedidos enviados o retirados: " << pedidos_fuera << endl;
 }
 
-void pizzeria::verCajaActiva(int zona){
+void pizzeria::verCajaActiva(int zona)
+{
     int z = indiceZona(zona);
-    if(z == -1){
+    if(z == -1)
+    {
         cout << "Zona no valida." << endl;
         return;
     }
@@ -206,21 +246,27 @@ void pizzeria::verCajaActiva(int zona){
     caja[z].mostrar();
 }
 
-void pizzeria::retirarPedido(int zona, string id){
+void pizzeria::retirarPedido(int zona, string id)
+{
     int z = indiceZona(zona);
-    if(z == -1){
+    if(z == -1)
+    {
         cout << "Zona no valida." << endl;
         return;
     }
-    if(caja[z].eliminar(id)){
+    if(caja[z].eliminar(id))
+    {
         pedidos_fuera++;
         cout << "Pedido " << id << " retirado de la caja de la zona " << nombreZona(z) << "." << endl;
-    } else{
+    }
+    else
+    {
         cout << "El pedido " << id << " no esta en la caja activa de la zona " << nombreZona(z) << "." << endl;
     }
 }
 
-int pizzeria::ocupacionCaja(int zona){
+int pizzeria::ocupacionCaja(int zona)
+{
     int z = indiceZona(zona);
     if(z == -1) return 0;
     return caja[z].get_longitud();

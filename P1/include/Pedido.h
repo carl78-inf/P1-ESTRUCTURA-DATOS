@@ -11,7 +11,8 @@ enum TipoPizza {MARGARITA, BARBACOA, VEGETAL, HAWAIANA, ROMANA, CUATRO_QUESOS};
 enum Tamano {MEDIANA, GRANDE};
 enum ZonaReparto {NORTE, SUR, ESTE, OESTE};
 
-struct Pedido {
+struct Pedido
+{
     string id_pedido = "P00000";
     int id_cliente = 100;
     TipoPizza tipo_pizza = BARBACOA;

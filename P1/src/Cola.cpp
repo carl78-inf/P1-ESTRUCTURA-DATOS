@@ -1,42 +1,51 @@
 #include "Cola.h"
 
-Cola::Cola(){
+Cola::Cola()
+{
     primero = NULL;
     ultimo = NULL;
     longitud = 0;
 }
 
-Cola::~Cola(){}
+Cola::~Cola() {}
 
-bool Cola::es_vacia(){
+bool Cola::es_vacia()
+{
     return (primero == NULL) && (ultimo == NULL);
 }
 
-void Cola::encolar(Pedido p){
+void Cola::encolar(Pedido p)
+{
     NodoCola *nuevo = new NodoCola(p);
-    if(es_vacia()){
+    if(es_vacia())
+    {
         primero = nuevo;
         ultimo = nuevo;
     }
-    else{
+    else
+    {
         ultimo->siguiente = nuevo;
         ultimo = nuevo;
     }
     longitud++;
 }
 
-Pedido Cola::desencolar(){
+Pedido Cola::desencolar()
+{
     Pedido porDefecto;
-    if(!es_vacia()){
+    if(!es_vacia())
+    {
         Pedido elemento = primero->elemento;
         NodoCola *aux = primero;
-        if((primero == ultimo) && (primero->siguiente == NULL)){
-           primero = NULL;
+        if((primero == ultimo) && (primero->siguiente == NULL))
+        {
+            primero = NULL;
             ultimo = NULL;
             aux->siguiente = NULL;
             delete(aux);
         }
-        else{
+        else
+        {
             primero = primero->siguiente;
             aux->siguiente = NULL;
             delete(aux);
@@ -47,37 +56,50 @@ Pedido Cola::desencolar(){
     return porDefecto;
 }
 
-Pedido Cola::inicio(){
+Pedido Cola::inicio()
+{
     Pedido porDefecto;
-    if(!es_vacia()){
+    if(!es_vacia())
+    {
         return primero->elemento;
-    } else{
+    }
+    else
+    {
         cout << "Cola Vacia" << endl;
     }
     return porDefecto;
 }
 
-Pedido Cola::fin(){
+Pedido Cola::fin()
+{
     Pedido porDefecto;
-    if(!es_vacia()){
+    if(!es_vacia())
+    {
         return ultimo->elemento;
-    } else{
+    }
+    else
+    {
         cout << "Cola Vacia" << endl;
     }
     return porDefecto;
 }
 
-int Cola::get_longitud(){
+int Cola::get_longitud()
+{
     return longitud;
 }
 
-void Cola::mostrar(){
-    if(!es_vacia()){
-        for (NodoCola* aux = primero; aux != NULL; aux = aux->siguiente) {
+void Cola::mostrar()
+{
+    if(!es_vacia())
+    {
+        for (NodoCola* aux = primero; aux != NULL; aux = aux->siguiente)
+        {
             Pedido p = aux->elemento;
             print_pedido_tabla(p);
             if(aux->siguiente != NULL) cout << endl;
         }
 
-    } else cout << "|        |         |               |         |       |                      |                      |";
+    }
+    else cout << "|        |         |               |         |       |                      |                      |";
 }
