@@ -1,16 +1,17 @@
 #include "NodoPila.h"
 
-NodoPila::NodoPila()
-{
+//Constructor vacío
+NodoPila::NodoPila() {
     Pedido pedido;
     elemento = pedido;
     siguiente = NULL;
 }
 
-NodoPila::NodoPila(Pedido p, NodoPila *sig)
-{
+//Constructor con argumentos
+NodoPila::NodoPila(Pedido p, NodoPila *sig) {
     elemento = p;
     siguiente = sig;
 }
 
+//Destructor
 NodoPila::~NodoPila() {}

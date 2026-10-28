@@ -4,6 +4,7 @@
 #include <Cola.h>
 #include <Pila.h>
 
+#define N_PEDIDOS_PASO 10
 #define ZONAS 4
 #define CAP_CAJA 6
 
@@ -21,14 +22,16 @@ private:
 public:
     pizzeria();
     virtual ~pizzeria();
+
     bool idYaEnPedidos(string id);
+    int ocupacionCaja(int zona);
+
     void generarPedidos(int numero);
     void ejecutarPasoEjecucion();
     void mostrar();
-    void mostrarFinalizados();
     void verCajaActiva(int zona);
     void retirarPedido(int zona, string id);
-    int ocupacionCaja(int zona);
+    void mostrarFinalizados();
 };
 
 #endif // PIZZERIA_H

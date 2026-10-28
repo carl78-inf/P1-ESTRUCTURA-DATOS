@@ -1,24 +1,5 @@
 #include "pizzeria.h"
 
-#define N_PEDIDOS_PASO 10
-
-// Nombre de la zona a partir de su indice (0=Norte, 1=Sur, 2=Este, 3=Oeste)
-static string nombreZona(int i)
-{
-    switch(i)
-    {
-    case 0:
-        return "Norte";
-    case 1:
-        return "Sur";
-    case 2:
-        return "Este";
-    case 3:
-        return "Oeste";
-    }
-    return "?";
-}
-
 //Constructor
 pizzeria::pizzeria() {
     pedidos_fuera = 0;
@@ -31,24 +12,28 @@ pizzeria::pizzeria() {
 pizzeria::~pizzeria() {}
 
 //Comprueba si un id existe ya en pedidos
-bool pizzeria::idYaEnPedidos(string id)
-{
-    bool yaEnPedidos = false;
-    Cola aux;
-    while(!yaEnPedidos && !pedidos.es_vacia())
-    {
-        if(pedidos.inicio().id_pedido == id)
-        {
+bool pizzeria::idYaEnPedidos(string id) {
+    bool yaEnPedidos = false; //Booleano para determinar si el id está ya en pedidos
+    Cola aux;                 //Cola auxiliar para no perder los datos
+
+    //Mientras no esté en pedidos y la cola no esté vacía
+    while(!yaEnPedidos && !pedidos.es_vacia()) {
+        //Si el ID del primer pedido es igual a id, yaEnPedidos = True
+        if(pedidos.inicio().id_pedido == id) {
             yaEnPedidos = true;
         }
+
+        //Añadimos a la cola auxiliar y desencolamos de pedidos
         aux.encolar(pedidos.inicio());
         pedidos.desencolar();
     }
-    while(!aux.es_vacia())
-    {
+
+    //Restauramos la cola de pedidos
+    while(!aux.es_vacia()) {
         pedidos.encolar(aux.inicio());
         aux.desencolar();
     }
+
     return yaEnPedidos;
 }
 
@@ -150,6 +135,28 @@ void pizzeria::ejecutarPasoEjecucion() {
     }
 }
 
+//Obtener el nombre de la zona a partir de su indice (0=Norte, 1=Sur, 2=Este, 3=Oeste)
+string nombreZona(int i) {
+    string nombre;
+    switch(i) {
+        case 0:
+            nombre = "Norte";
+            break;
+        case 1:
+            nombre = "Sur";
+            break;
+        case 2:
+            nombre = "Este";
+            break;
+        case 3:
+            nombre = "Oeste";
+            break;
+        default:
+            nombre = "NULL";
+    }
+    return nombre;
+}
+
 //Mostrar el estado del sistema
 void pizzeria::mostrar() {
     cout << "\n//////////////////////////////////////////////PEDIDOS///////////////////////////////////////////////" << endl;
@@ -184,33 +191,36 @@ void pizzeria::mostrar() {
          << "Pedidos enviados o retirados: " << pedidos_fuera << endl;
 }
 
-int pizzeria::ocupacionCaja(int zona)
-{
+//Obtiene la ocupación de una caja por su índice de zona (0=Norte, 1=Sur, 2=Este, 3=Oeste)
+int pizzeria::ocupacionCaja(int zona) {
     return caja[zona - 1].get_longitud();
 }
 
-void pizzeria::verCajaActiva(int zona)
-{
+//Muestra la caja activa de una zona
+void pizzeria::verCajaActiva(int zona) {
     caja[zona - 1].mostrar();
 }
 
-void pizzeria::retirarPedido(int zona, string id)
-{
-    Pedido p = caja[zona - 1].buscar(id);
-    if(caja[zona - 1].eliminar(id))
-    {
-        pedidos_fuera++;
-        p.estado = "Retirado";
-        finalizados.encolar(p);
+//Retira un pedido de una caja activa por su identificador
+void pizzeria::retirarPedido(int zona, string id) {
+    Pedido p = caja[zona - 1].buscar(id); //Obtiene el pedido con ese ID o uno por defecto si no existe
+
+    //Al eliminar, si el pedido está en la caja
+    if(caja[zona - 1].eliminar(id)) {
+        pedidos_fuera++;        //Aumentamos el contador de pedidos fuera
+        p.estado = "Retirado";  //Establecemos el estado del pedido a "Retirado"
+        finalizados.encolar(p); //Y lo añadimos a la cola de finalizados
         cout << "Pedido " << id << " retirado de la caja de la zona " << nombreZona(zona - 1) << "." << endl;
     }
-    else
-    {
+
+    //Si no existe en la caja
+    else {
         cout << "El pedido " << id << " no esta en la caja activa de la zona " << nombreZona(zona - 1) << "." << endl;
     }
 }
 
-void pizzeria::mostrarFinalizados(){
+//Muestra los pedidos finalizados (enviados y retirados)
+void pizzeria::mostrarFinalizados() {
     cout << "\n////////////////////////////////////////////FINALIZADOS////////////////////////////////////////////" << endl;
     finalizados.mostrar();
 }

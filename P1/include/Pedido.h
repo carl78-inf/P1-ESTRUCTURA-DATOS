@@ -1,9 +1,14 @@
 #ifndef PEDIDO_H
 #define PEDIDO_H
 
-#define PROB_PERSONALIZACION 20
-
 #include <string>
+#include <iostream>
+#include <string.h>
+#include <ctime>
+#include <stdlib.h>
+#include <iomanip>
+
+#define PROB_PERSONALIZACION 20
 
 using namespace std;
 
@@ -28,8 +33,6 @@ string generarIDRandom();                       //Genera un ID de pedido aleator
 Pedido generarPedidoRandom(string id = "");   //Genera un pedido aleatorio
 
 bool mismoID(Pedido p1, Pedido p2);             //Compara el ID de dos pedidos y devuelve True si son iguales
-
-void print_pedido(Pedido p);                    //Imprime el pedido
 
 void print_pedido_simple(Pedido p);             //Imprime el pedido en modo simple --> id y tipo_pizza
 

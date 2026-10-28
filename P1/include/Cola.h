@@ -2,10 +2,8 @@
 #define COLA_H
 
 #include <NodoCola.h>
-#include <iostream>
 
-using namespace std;
-
+//Definición de la clase Cola
 class Cola {
     private:
         NodoCola *primero;  //Puntero al primer elemento

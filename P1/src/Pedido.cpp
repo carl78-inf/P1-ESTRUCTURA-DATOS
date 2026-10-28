@@ -1,13 +1,5 @@
 #include "Pedido.h"
 
-#include <iostream>
-#include <string.h>
-#include <ctime>
-#include <stdlib.h>
-#include <iomanip>
-
-using namespace std;
-
 //Genera un ID de pedido aleatorio
 string generarIDRandom() {
     string id = "P";

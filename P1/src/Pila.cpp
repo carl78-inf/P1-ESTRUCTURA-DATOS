@@ -1,116 +1,121 @@
 #include "Pila.h"
 
-Pila::Pila()
-{
+//Constructor
+Pila::Pila() {
     cima = NULL;
     longitud = 0;
 }
 
-Pila::~Pila()
-{
+//Destructor
+Pila::~Pila() {
     while(cima) desapilar();
 }
 
-bool Pila::es_vacia()
-{
+//Comprobar si la pila es vacía
+bool Pila::es_vacia() {
     return cima == NULL;
 }
 
-void Pila::apilar(Pedido p)
-{
-    NodoPila *nuevo = new NodoPila(p, cima);
-    cima = nuevo;
-    longitud++;
+//Añadir un pedido en la cima de la pila
+void Pila::apilar(Pedido p) {
+    NodoPila *nuevo = new NodoPila(p, cima); //Puntero a un nuevo nodo
+    cima = nuevo;                            //Asignamos la cima al nuevo nodo
+    longitud++;                              //Incrementamos la longitud
 }
 
-void Pila::desapilar()
-{
+//Quitar el primer elemento de la cima de la pila
+void Pila::desapilar() {
     NodoPila *nodo;
-    if(!es_vacia())
-    {
-        nodo = cima;
-        cima = nodo->siguiente;
-        delete nodo;
-        longitud--;
+    if(!es_vacia()) {
+        nodo = cima;            //Puntero auxiliar apunta a la cima
+        cima = nodo->siguiente; //Cima apunta al nodo siguiente
+        delete nodo;            //Eliminamos el nodo
+        longitud--;             //Decrementamos la longitud
     }
 }
 
-Pedido Pila::cima_pila()
-{
-    Pedido porDefecto;
-    if(!es_vacia())
-    {
+//Obtenemos el elemento de la cima de la pila
+Pedido Pila::cima_pila() {
+    Pedido porDefecto; //Pedido por defecto para evitar errores en el return
+
+    //Si no es vacía, devolvemos el elemento de la cima
+    if(!es_vacia()) {
         return cima->elemento;
     }
-    else
-    {
+
+    //Si es vacía imprimimos "Pila Vacía" y devolvemos el pedido por defecto
+    else {
         cout << "Pila Vacia" << endl;
     }
     return porDefecto;
 }
 
-int Pila::get_longitud()
-{
+//Obtenemos la longitud de la pila
+int Pila::get_longitud() {
     return longitud;
 }
 
-void Pila::mostrar()
-{
-    if(!es_vacia())
-    {
+//Mostramos la pila por pantalla
+void Pila::mostrar() {
+    //Si no está vacía, imprimimos cada elemento de la pila
+    if(!es_vacia()) {
         cout << "(cima)" << endl;
-        for (NodoPila* aux = cima; aux != NULL; aux = aux->siguiente)
-        {
+        for (NodoPila* aux = cima; aux != NULL; aux = aux->siguiente) {
             Pedido p = aux->elemento;
             cout << "\t";
             print_pedido_simple(p);
             cout << endl;
         }
         cout << "(fondo)" << endl;
-
-    }
-    else cout << "[]" << endl;
+    } else cout << "[]" << endl;
 }
 
-bool Pila::eliminar(string id)
-{
-    NodoPila *ant = NULL;
-    NodoPila *act = cima;
-    while(act != NULL && act->elemento.id_pedido != id)
-    {
+//Buscar un pedido por su ID
+Pedido Pila::buscar(string id) {
+    Pedido p;             //Pedido que vamos a devolver
+    NodoPila *act = cima; //Puntero auxiliar que apunta a la cima
+
+    //Recorremos la pila hasta encontrar el id o haberla recorrido por completo
+    while(act != NULL && act->elemento.id_pedido != id) {
+        act = act->siguiente;
+    }
+
+    //Si no lo hemos encontrado, devolvemos un pedido por defecto
+    if(act == NULL) {
+        return p;
+    }
+
+    p = act->elemento; //Pedido = elemento del nodo apuntado por actual
+    return p;          //Devolvemos el pedido
+}
+
+//Eliminamos un pedido por su ID
+bool Pila::eliminar(string id) {
+    NodoPila *ant = NULL; //Puntero auxiliar anterior
+    NodoPila *act = cima; //Puntero auxiliar actual
+
+    //Recorremos la pila con ambos punteros hasta que act tenga el ID que buscamos
+    while(act != NULL && act->elemento.id_pedido != id) {
         ant = act;
         act = act->siguiente;
     }
-    if(act == NULL)
-    {
+
+    //Si no se ha encontrado el ID, devolvemos False
+    if(act == NULL) {
         return false;
     }
 
-    if(ant == NULL)
-    {
+    //Si es el primer elemento, cima apuntará al siguiente
+    if(ant == NULL) {
         cima = act->siguiente;
     }
-    else
-    {
+
+    //Si no, anterior apuntará al siguiente del siguiente de actual
+    else{
         ant->siguiente = act->siguiente;
     }
-    delete act;
-    longitud--;
-    return true;
-}
 
-Pedido Pila::buscar(string id)
-{
-    Pedido p;
-    NodoPila *act = cima;
-    while(act != NULL && act->elemento.id_pedido != id)
-    {
-        act = act->siguiente;
-    }
-    if(act == NULL)
-    {
-        return p;
-    }
-    p = act->elemento;
-    return p;
+    delete act; //Eliminamos el nodo
+    longitud--; //Decrementamos la longitud
+    return true;
 }

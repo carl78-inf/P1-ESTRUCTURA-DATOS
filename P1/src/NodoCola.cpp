@@ -1,16 +1,17 @@
 #include "NodoCola.h"
 
-NodoCola::NodoCola()
-{
+//Constructor vacío
+NodoCola::NodoCola() {
     Pedido pedido;
     elemento = pedido;
     siguiente = NULL;
 }
 
-NodoCola::NodoCola(Pedido p, NodoCola *sig)
-{
+//Constructor con argumentos
+NodoCola::NodoCola(Pedido p, NodoCola *sig) {
     elemento = p;
     siguiente = sig;
 }
 
+//Destructor
 NodoCola::~NodoCola() {}

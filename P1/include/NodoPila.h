@@ -3,16 +3,16 @@
 
 #include <Pedido.h>
 
-class NodoPila
-{
-private:
-    NodoPila *siguiente;
-    Pedido elemento;
-    friend class Pila;
-public:
-    NodoPila();
-    NodoPila(Pedido pedido, NodoPila *sig = NULL);
-    virtual ~NodoPila();
+//Definición de la clase NodoPila
+class NodoPila {
+    private:
+        NodoPila *siguiente; //Puntero al nodo siguiente (anterior)
+        Pedido elemento;     //Valor que contiene
+        friend class Pila;
+    public:
+        NodoPila();
+        NodoPila(Pedido pedido, NodoPila *sig = NULL);
+        virtual ~NodoPila();
 };
 
 #endif // NODOPILA_H
