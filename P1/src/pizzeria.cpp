@@ -19,17 +19,18 @@ static string nombreZona(int i)
     return "?";
 }
 
-pizzeria::pizzeria()
-{
+//Constructor
+pizzeria::pizzeria() {
     pedidos_fuera = 0;
-    for(int i = 0; i < ZONAS; i++)
-    {
+    for(int i = 0; i < ZONAS; i++) {
         cajas_enviadas[i] = 0;
     }
 }
 
+//Destructor
 pizzeria::~pizzeria() {}
 
+//Comprueba si un id existe ya en pedidos
 bool pizzeria::idYaEnPedidos(string id)
 {
     bool yaEnPedidos = false;
@@ -51,183 +52,136 @@ bool pizzeria::idYaEnPedidos(string id)
     return yaEnPedidos;
 }
 
-void pizzeria::generarPedidos(int numero)
-{
-    string id;
-    for(int i = 0; i < numero; i++)
-    {
-        do
-        {
-            id = generarIDRandom();
-        }
-        while(idYaEnPedidos(id));
-        Pedido p = generarPedidoRandom();
-        p.id_pedido = id;
+//Generar N pedidos aleatoriamente
+void pizzeria::generarPedidos(int numero) {
+    string id; //ID del pedido
+    for(int i = 0; i < numero; i++) {
+        do {
+            id = generarIDRandom(); //Generamos un ID aleatorio
+        } while(idYaEnPedidos(id)); //Repetimos si el ID ya existe en pedidos
+
+        //Generamos un pedido aleatorio con ese id y lo añadimos a la cola de pedidos
+        Pedido p = generarPedidoRandom(id);
         pedidos.encolar(p);
     }
 }
 
-void pizzeria::ejecutarPasoEjecucion()
-{
-    Pedido p;
-    int contador = 0;
+//Ejecutar un paso de la simulación
+void pizzeria::ejecutarPasoEjecucion() {
+    Pedido p;     //Pedido que se va a manejar
+    int contador; //Contador de pasos
 
-    // Fase Expedicion -> Caja (solo una fase por ejecucion)
-    for(int z = 0; z < ZONAS; z++)
-    {
+    //Fase Expedicion -> Caja
+    for(int z = 0; z < ZONAS; z++) {
         contador = 0;
-        while(!expedicion[z].es_vacia() && contador < N_PEDIDOS_PASO)
-        {
-            p = expedicion[z].inicio();
-            p.estado = "Caja";
-            caja[z].apilar(p);
-            expedicion[z].desencolar();
+        while(!expedicion[z].es_vacia() && contador < N_PEDIDOS_PASO) {
+            p = expedicion[z].inicio();         //Obtenemos el primer pedido de la cola
+            p.estado = "Caja";                  //Establecemos el estado a "Caja"
+            caja[z].apilar(p);                  //Introducimos el pedido en la caja correspondiente
+            expedicion[z].desencolar();         //Y lo eliminamos de la cola de expedicion
             contador++;
 
-            // Caja llena: se envia a reparto y se empieza otra nueva vacia
-            if(caja[z].get_longitud() == CAP_CAJA)
-            {
-                cajas_enviadas[z]++;
-                pedidos_fuera += CAP_CAJA;
-                while(!caja[z].es_vacia())
-                {
-                    p = caja[z].cima_pila();
-                    p.estado = "Enviado";
-                    finalizados.encolar(p);
-                    caja[z].desapilar();
+            //Si una caja se llena, se envia a reparto y se empieza otra nueva vacia
+            if(caja[z].get_longitud() == CAP_CAJA) {
+                cajas_enviadas[z]++;            //Aumentamos el contador de cajas enviadas
+                pedidos_fuera += CAP_CAJA;      //Aumentamos el contador de pedidos fuera
+
+                //Vaciamos la caja y añadimos los pedidos a la cola de finalizados
+                while(!caja[z].es_vacia()) {
+                    p = caja[z].cima_pila();    //Obtenemos el primer pedido de la pila
+                    p.estado = "Enviado";       //Establecemos el estado a "Enviado"
+                    finalizados.encolar(p);     //Introducimos el pedido en la cola de finalizados
+                    caja[z].desapilar();        //Y lo eliminamos de la caja
                 }
             }
         }
     }
 
+    //Fase Cocina -> Expedición
     contador = 0;
-    while(!cocina.es_vacia() && contador < N_PEDIDOS_PASO)
-    {
-        p = cocina.inicio();
-        p.estado = "Expedicion";
-        switch(p.zona_reparto)
-        {
-        case NORTE:
-            expedicion[0].encolar(p);
-            break;
-        case SUR:
-            expedicion[1].encolar(p);
-            break;
-        case ESTE:
-            expedicion[2].encolar(p);
-            break;
-        case OESTE:
-            expedicion[3].encolar(p);
-            break;
+    while(!cocina.es_vacia() && contador < N_PEDIDOS_PASO) {
+        p = cocina.inicio();                    //Obtenemos el primer pedido de la cola
+        p.estado = "Expedicion";                //Establecemos el estado a "Expedicion"
+        //Introducimos el pedido en la cola de expedición correspondiente
+        switch(p.zona_reparto) {
+            case NORTE:
+                expedicion[0].encolar(p);
+                break;
+            case SUR:
+                expedicion[1].encolar(p);
+                break;
+            case ESTE:
+                expedicion[2].encolar(p);
+                break;
+            case OESTE:
+                expedicion[3].encolar(p);
+                break;
         }
-        cocina.desencolar();
+        cocina.desencolar();                    //Y lo eliminamos de la cola de cocina
         contador++;
     }
 
+    //Fase Preparación Especial -> Cocina
     contador = 0;
-    while(!preparacion_especial.es_vacia() && contador < N_PEDIDOS_PASO)
-    {
-        p = preparacion_especial.inicio();
-        p.estado = "Cocina";
-        cocina.encolar(p);
-        preparacion_especial.desencolar();
+    while(!preparacion_especial.es_vacia() && contador < N_PEDIDOS_PASO) {
+        p = preparacion_especial.inicio();      //Obtenemos el primer pedido de la cola
+        p.estado = "Cocina";                    //Establecemos el estado a "Cocina"
+        cocina.encolar(p);                      //Introducimos el pedido en la cola de cocina
+        preparacion_especial.desencolar();      //Y lo eliminamos de la cola de preparación especial
         contador++;
     }
 
+    //Fase Pedidos -> Cocina / Preparación Especial
     contador = 0;
-    while(!pedidos.es_vacia() && contador < N_PEDIDOS_PASO)
-    {
-        p = pedidos.inicio();
-        if(p.personalizada)
-        {
-            p.estado = "Preparacion especial";
-            preparacion_especial.encolar(p);
+    while(!pedidos.es_vacia() && contador < N_PEDIDOS_PASO) {
+        p = pedidos.inicio();                   //Obtenemos el primer pedido de la cola
+        //Si personalizada = True
+        if(p.personalizada) {
+            p.estado = "Preparacion especial";  //Establecemos el estado a "Preparacion especial"
+            preparacion_especial.encolar(p);    //Introducimos el pedido en la cola de preparación especial
         }
-        else
-        {
-            p.estado = "Cocina";
-            cocina.encolar(p);
+        //Si personalizada = False
+        else {
+            p.estado = "Cocina";                //Establecemos el estado a "Cocina"
+            cocina.encolar(p);                  //Introducimos el pedido en la cola de cocina
         }
-        pedidos.desencolar();
+        pedidos.desencolar();                   //Y lo eliminamos de la cola de pedidos
         contador++;
     }
 }
 
-void pizzeria::mostrar()
-{
+//Mostrar el estado del sistema
+void pizzeria::mostrar() {
     cout << "\n//////////////////////////////////////////////PEDIDOS///////////////////////////////////////////////" << endl;
-    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
-    cout << "| Pedido | Cliente | Tipo de Pizza | Tamaño  | Zona  | Preparacion Especial | Estado               |" << endl;
-    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
     pedidos.mostrar();
-    cout << endl;
-    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
-
 
     cout << "\n\n///////////////////////////////////////PREPARACION ESPECIAL////////////////////////////////////////" << endl;
-    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
-    cout << "| Pedido | Cliente | Tipo de Pizza | Tamaño  | Zona  | Preparacion Especial | Estado               |" << endl;
-    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
     preparacion_especial.mostrar();
-    cout << endl;
-    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
-
 
     cout << "\n\n//////////////////////////////////////////////COCINA///////////////////////////////////////////////" << endl;
-    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
-    cout << "| Pedido | Cliente | Tipo de Pizza | Tamaño  | Zona  | Preparacion Especial | Estado               |" << endl;
-    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
     cocina.mostrar();
-    cout << endl;
-    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
-
 
     cout << "\n\n////////////////////////////////////////////EXPEDICION/////////////////////////////////////////////" << endl;
-
     cout << "\n                                               NORTE" << endl;
-    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
-    cout << "| Pedido | Cliente | Tipo de Pizza | Tamaño  | Zona  | Preparacion Especial | Estado               |" << endl;
-    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
     expedicion[0].mostrar();
-    cout << endl;
-    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
-
     cout << "\n                                                SUR" << endl;
-    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
-    cout << "| Pedido | Cliente | Tipo de Pizza | Tamaño  | Zona  | Preparacion Especial | Estado               |" << endl;
-    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
     expedicion[1].mostrar();
-    cout << endl;
-    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
-
     cout << "\n                                               ESTE" << endl;
-    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
-    cout << "| Pedido | Cliente | Tipo de Pizza | Tamaño  | Zona  | Preparacion Especial | Estado               |" << endl;
-    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
     expedicion[2].mostrar();
-    cout << endl;
-    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
-
     cout << "\n                                               OESTE" << endl;
-    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
-    cout << "| Pedido | Cliente | Tipo de Pizza | Tamaño  | Zona  | Preparacion Especial | Estado               |" << endl;
-    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
     expedicion[3].mostrar();
-    cout << endl;
-    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
 
     cout << "\n\n--- CAJAS TERMICAS ---" << endl;
     int total_enviadas = 0;
-    for(int z = 0; z < ZONAS; z++)
-    {
+    for(int z = 0; z < ZONAS; z++) {
         cout << "Zona " << nombreZona(z) << " -> activa: "
              << caja[z].get_longitud() << "/" << CAP_CAJA
              << "  enviadas: " << cajas_enviadas[z] << endl;
         total_enviadas += cajas_enviadas[z];
     }
-    cout << endl;
-    cout << "Total de cajas enviadas: " << total_enviadas << endl;
-    cout << "Pedidos enviados o retirados: " << pedidos_fuera << endl;
+    cout << endl
+         << "Total de cajas enviadas: " << total_enviadas << endl
+         << "Pedidos enviados o retirados: " << pedidos_fuera << endl;
 }
 
 int pizzeria::ocupacionCaja(int zona)
@@ -258,54 +212,5 @@ void pizzeria::retirarPedido(int zona, string id)
 
 void pizzeria::mostrarFinalizados(){
     cout << "\n////////////////////////////////////////////FINALIZADOS////////////////////////////////////////////" << endl;
-    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
-    cout << "| Pedido | Cliente | Tipo de Pizza | Tamaño  | Zona  | Preparacion Especial | Estado               |" << endl;
-    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
     finalizados.mostrar();
-    cout << endl;
-    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
 }
-
-/*  Pruebas de colas
-
-#include "pizzeria.h"
-#include <string.h>
-
-#include <iostream>
-
-#include <ctime>
-#include <stdlib.h>
-
-using namespace std;
-
-Pizzeria::Pizzeria(){}
-
-Pizzeria::~Pizzeria(){}
-
-void Pizzeria::generarPedidos(Cola& pedidos, int n){
-    for(int i = 1; i <= n; i++){
-        Pedido p;
-        p.id_pedido[1] = '0' + (rand() % 10);
-        p.id_pedido[2] = '0' + (rand() % 10);
-        p.id_pedido[3] = '0' + (rand() % 10);
-        p.id_pedido[4] = '0' + (rand() % 10);
-        p.id_pedido[5] = '0' + (rand() % 10);
-        p.id_pedido[6] = '\0';
-        int DESDE = 100, HASTA = 999;
-        p.id_cliente = rand() % (DESDE - HASTA + 1) + DESDE;
-        TipoPizza tipo[] = {MARGARITA, ROMANA, CUATRO_QUESOS, VEGETAL, HAWAIANA, BARBACOA};
-        p.tipo_pizza = tipo[rand() % (6)];
-        ZonaReparto zona[] = {ESTE, NORTE, SUR, OESTE};
-        p.zona_reparto = zona[rand() % (4)];
-        Tamano tamano[] = {GRANDE, MEDIANA};
-        p.tamano = tamano[rand() % (2)];
-        p.personalizada = (rand() % 100) < 20;
-        strcpy(p.estado, "Recibido");
-        pedidos.encolar(p);
-    }
-}
-
-void Pizzeria::mostrarPedidos(Cola& pedidos){
-}
-
-*/

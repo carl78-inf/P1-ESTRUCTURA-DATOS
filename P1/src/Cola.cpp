@@ -1,105 +1,122 @@
 #include "Cola.h"
 
-Cola::Cola()
-{
+//Constructor
+Cola::Cola() {
     primero = NULL;
     ultimo = NULL;
     longitud = 0;
 }
 
+//Destructor
 Cola::~Cola() {}
 
-bool Cola::es_vacia()
-{
+//Comprobar si la cola es vacía
+bool Cola::es_vacia() {
     return (primero == NULL) && (ultimo == NULL);
 }
 
-void Cola::encolar(Pedido p)
-{
-    NodoCola *nuevo = new NodoCola(p);
-    if(es_vacia())
-    {
+//Añadir un pedido al final de la cola
+void Cola::encolar(Pedido p) {
+    NodoCola *nuevo = new NodoCola(p); //Puntero a un nuevo nodo
+
+    //Si está vacía, los dos punteros apuntan al nuevo nodo
+    if(es_vacia()) {
         primero = nuevo;
         ultimo = nuevo;
     }
-    else
-    {
+
+    //Si no, el último nodo apuntará al nuevo, y el puntero último también
+    else {
         ultimo->siguiente = nuevo;
         ultimo = nuevo;
     }
-    longitud++;
+
+    longitud++; //Incrementamos la longitud
 }
 
-Pedido Cola::desencolar()
-{
-    Pedido porDefecto;
-    if(!es_vacia())
-    {
-        Pedido elemento = primero->elemento;
-        NodoCola *aux = primero;
-        if((primero == ultimo) && (primero->siguiente == NULL))
-        {
+//Quitar el primer elemento de la cola
+Pedido Cola::desencolar() {
+    Pedido porDefecto; //Pedido por defecto para evitar errores en el return
+
+    if(!es_vacia()) {
+        Pedido elemento = primero->elemento; //elemento = pedido del inicio de la cola
+        NodoCola *aux = primero;             //Puntero auxiliar que apunta al primer nodo
+
+        //Si solo hay un elemento, ponemos todos los punteros a null y lo eliminamos
+        if((primero == ultimo) && (primero->siguiente == NULL)) {
             primero = NULL;
             ultimo = NULL;
             aux->siguiente = NULL;
             delete(aux);
         }
-        else
-        {
+
+        //Si no, eliminaremos el primer elemento Y primero apuntará al siguiente nodo
+        else {
             primero = primero->siguiente;
             aux->siguiente = NULL;
             delete(aux);
         }
-        longitud--;
-        return elemento;
+
+        longitud--; //Decrementamos la longitud
+
+        return elemento; //Devolvemos el pedido eliminado
     }
-    return porDefecto;
+    return porDefecto; //Si la cola es vacía, devolvemos el pedido por defecto
 }
 
-Pedido Cola::inicio()
-{
-    Pedido porDefecto;
-    if(!es_vacia())
-    {
+//Obtenemos el primer elemento de la cola
+Pedido Cola::inicio() {
+    Pedido porDefecto; //Pedido por defecto para evitar errores en el return
+
+    //Si no es vacía, devolvemos el primer elemento
+    if(!es_vacia()) {
         return primero->elemento;
     }
-    else
-    {
+
+    //Si es vacía imprimimos "Cola Vacía" y devolvemos el pedido por defecto
+    else {
         cout << "Cola Vacia" << endl;
     }
     return porDefecto;
 }
 
-Pedido Cola::fin()
-{
-    Pedido porDefecto;
-    if(!es_vacia())
-    {
+//Obtenemos el último elemento de la cola
+Pedido Cola::fin() {
+    Pedido porDefecto; //Pedido por defecto para evitar errores en el return
+
+    //Si no es vacía, devolvemos el último elemento
+    if(!es_vacia()) {
         return ultimo->elemento;
     }
-    else
-    {
+
+    //Si es vacía imprimimos "Cola Vacía" y devolvemos el pedido por defecto
+    else {
         cout << "Cola Vacia" << endl;
     }
     return porDefecto;
 }
 
-int Cola::get_longitud()
-{
+//Obtenemos la longitud de la cola
+int Cola::get_longitud() {
     return longitud;
 }
 
-void Cola::mostrar()
-{
-    if(!es_vacia())
-    {
-        for (NodoCola* aux = primero; aux != NULL; aux = aux->siguiente)
-        {
+//Mostramos la cola en formato de tabla
+void Cola::mostrar() {
+    //Imprimimos la cabecera de la tabla
+    cout << "+--------------------------------------------------------------------------------------------------+" << endl
+         << "| Pedido | Cliente | Tipo de Pizza | Tamaño  | Zona  | Preparacion Especial | Estado               |" << endl
+         << "+--------------------------------------------------------------------------------------------------+" << endl;
+
+    //Si no está vacía, imprimimos cada elemento de la cola
+    if(!es_vacia()) {
+        for (NodoCola* aux = primero; aux != NULL; aux = aux->siguiente) {
             Pedido p = aux->elemento;
-            print_pedido_tabla(p);
-            if(aux->siguiente != NULL) cout << endl;
+            print_pedido_tabla(p); cout << endl; //Imprimimos cada elemento
         }
 
-    }
-    else cout << "|        |         |               |         |       |                      |                      |";
+    } else cout << "|        |         |               |         |       |                      |                      |" << endl;
+
+    //Imprimimos el final de la tabla
+    cout << "+--------------------------------------------------------------------------------------------------+" << endl;
 }

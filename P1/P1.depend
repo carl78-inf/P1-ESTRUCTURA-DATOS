@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1793102600 source:c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\src\pizzeria.cpp
+1793119231 source:c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\src\pizzeria.cpp
 	"pizzeria.h"
 	"pizzeria.h"
 	<string.h>
@@ -7,31 +7,31 @@
 	<ctime>
 	<stdlib.h>
 
-1793101852 c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\include\pizzeria.h
+1793119231 c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\include\pizzeria.h
 	<Cola.h>
 	<Pila.h>
 
-1793099354 source:c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\src\cola.cpp
+1793119471 source:c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\src\cola.cpp
 	"Cola.h"
 
-1793099354 c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\include\cola.h
+1793119651 c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\include\cola.h
 	<NodoCola.h>
 	<iostream>
 
-1793099354 source:c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\src\nodocola.cpp
+1793119231 source:c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\src\nodocola.cpp
 	"NodoCola.h"
 
 1793099354 c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\include\nodocola.h
 	<Pedido.h>
 
-1793104708 source:c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\main.cpp
+1793119231 source:c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\main.cpp
 	<iostream>
 	<pizzeria.h>
 
-1793115974 c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\include\pedido.h
+1793119231 c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\include\pedido.h
 	<string>
 
-1793115514 source:c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\src\pedido.cpp
+1793119231 source:c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\src\pedido.cpp
 	"Pedido.h"
 	<iostream>
 	<string.h>
@@ -39,7 +39,7 @@
 	<stdlib.h>
 	<iomanip>
 
-1793099354 source:c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\src\nodopila.cpp
+1793119231 source:c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\src\nodopila.cpp
 	"NodoPila.h"
 
 1793099354 c:\users\carlos uah\onedrive\2ºuah\1ºcuatrimestre\estructuras de datos\p1-estructura-datos\p1\include\nodopila.h
