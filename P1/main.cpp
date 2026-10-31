@@ -41,7 +41,7 @@ int main()
             cin >> n;
             if (n > 0)
             {
-                p.generarPedidos(n);
+                p.Generar_pedidos(n);
                 cout << n << " pedidos generados." << endl;
             }
             else
@@ -52,56 +52,27 @@ int main()
 
         //Ejecutar un paso de la simulación
         case 2:
-            p.ejecutarPasoEjecucion();
+            p.Dar_paso_simulacion();
             break;
 
         //Mostrar estado del sistema
         case 3:
-            p.mostrar();
+            p.Mostrar_estado_sistema();
             break;
 
         //Ver caja activa de la zona
         case 4:
-            cout << "Zona (1=Norte, 2=Sur, 3=Este, 4=Oeste): ";
-            cin >> n;
-            if (n < 1 || n > ZONAS)
-            {
-                cout << "Zona no valida." << endl;
-                break;
-            }
-            if (p.ocupacionCaja(n) == 0)
-            {
-                cout << "Zona sin pedidos en la caja " << endl;
-                break;
-            }
-            p.verCajaActiva(n);
+            p.Ver_contenido_caja();
             break;
 
         //Retirar un pedido de una caja activa
         case 5:
-            cout << "Zona (1=Norte, 2=Sur, 3=Este, 4=Oeste): ";
-            cin >> n;
-            if (n < 1 || n > ZONAS)
-            {
-                cout << "Zona no valida." << endl;
-            }
-            else if (p.ocupacionCaja(n) == 0)
-            {
-                cout << "Zona sin pedidos en la caja " << endl;
-                break;
-            }
-            else
-            {
-                p.verCajaActiva(n);
-                cout << "Identificador del pedido a retirar: ";
-                cin >> id;
-                p.retirarPedido(n, id);
-            }
+            p.Retirar_pedido_caja();
             break;
 
         //Mostrar pedidos finalizados
         case 6:
-            p.mostrarFinalizados();
+            p.Mostrar_finalizados();
             break;
 
         //Salir

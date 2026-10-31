@@ -25,13 +25,14 @@ public:
 
     bool idYaEnPedidos(string id);
     int ocupacionCaja(int zona);
+    void Quitar_pedido_pila(Pila& pila, string);
 
-    void generarPedidos(int numero);
-    void ejecutarPasoEjecucion();
-    void mostrar();
-    void verCajaActiva(int zona);
-    void retirarPedido(int zona, string id);
-    void mostrarFinalizados();
+    void Generar_pedidos(int numero);
+    void Dar_paso_simulacion();
+    void Mostrar_estado_sistema();
+    void Ver_contenido_caja();
+    void Retirar_pedido_caja();
+    void Mostrar_finalizados();
 };
 
 #endif // PIZZERIA_H

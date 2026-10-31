@@ -44,7 +44,7 @@ bool pizzeria::idYaEnPedidos(string id)
 }
 
 //Generar N pedidos aleatoriamente
-void pizzeria::generarPedidos(int numero)
+void pizzeria::Generar_pedidos(int numero)
 {
     string id; //ID del pedido
     for(int i = 0; i < numero; i++)
@@ -62,7 +62,7 @@ void pizzeria::generarPedidos(int numero)
 }
 
 //Ejecutar un paso de la simulación
-void pizzeria::ejecutarPasoEjecucion()
+void pizzeria::Dar_paso_simulacion()
 {
     Pedido p;     //Pedido que se va a manejar
     int contador; //Contador de pasos
@@ -73,7 +73,7 @@ void pizzeria::ejecutarPasoEjecucion()
         contador = 0;
         while(!expedicion[z].esVacia() && contador < N_PEDIDOS_PASO)
         {
-            p = expedicion[z].valorInicio();         //Obtenemos el primer pedido de la cola
+            p = expedicion[z].valorInicio();    //Obtenemos el primer pedido de la cola
             p.estado = "Caja";                  //Establecemos el estado a "Caja"
             caja[z].apilar(p);                  //Introducimos el pedido en la caja correspondiente
             expedicion[z].desencolar();         //Y lo eliminamos de la cola de expedicion
@@ -181,7 +181,7 @@ string nombreZona(int i)
 }
 
 //Mostrar el estado del sistema
-void pizzeria::mostrar()
+void pizzeria::Mostrar_estado_sistema()
 {
     cout << "\n//////////////////////////////////////////////PEDIDOS///////////////////////////////////////////////" << endl;
     pedidos.mostrar();
@@ -223,34 +223,108 @@ int pizzeria::ocupacionCaja(int zona)
 }
 
 //Muestra la caja activa de una zona
-void pizzeria::verCajaActiva(int zona)
+void pizzeria::Ver_contenido_caja()
 {
-    caja[zona - 1].mostrar();
+    int select;
+    cout << "Zona (1=Norte, 2=Sur, 3=Este, 4=Oeste): ";
+    cin >> select;
+
+    if (select < 1 || select > ZONAS)
+    {
+        cout << "Zona no valida." << endl;
+    }
+    else if (ocupacionCaja(select) == 0)
+    {
+        cout << "Zona sin pedidos en la caja " << endl;
+    }
+    else
+    {
+        cout << "=== CAJA ACTIVA: ZONA " << nombreZona(select -1) << " ===" << endl;
+        caja[select - 1].mostrar();
+    }
 }
 
 //Retira un pedido de una caja activa por su identificador
-void pizzeria::retirarPedido(int zona, string id)
+void pizzeria::Retirar_pedido_caja()
 {
-    Pedido p = caja[zona - 1].buscar(id); //Obtiene el pedido con ese ID o uno por defecto si no existe
-
-    //Al eliminar, si el pedido está en la caja
-    if(caja[zona - 1].eliminar(id))
+    int select;
+    cout << "Zona (1=Norte, 2=Sur, 3=Este, 4=Oeste): ";
+    cin >> select;
+    if (select < 1 || select > ZONAS)
     {
-        pedidos_fuera++;        //Aumentamos el contador de pedidos fuera
-        p.estado = "Retirado";  //Establecemos el estado del pedido a "Retirado"
-        finalizados.encolar(p); //Y lo añadimos a la cola de finalizados
-        cout << "Pedido " << id << " retirado de la caja de la zona " << nombreZona(zona - 1) << "." << endl;
+        cout << "Zona no valida." << endl;
     }
-
-    //Si no existe en la caja
+    else if (ocupacionCaja(select) == 0)
+    {
+        cout << "Zona sin pedidos en la caja " << endl;
+    }
     else
     {
-        cout << "El pedido " << id << " no esta en la caja activa de la zona " << nombreZona(zona - 1) << "." << endl;
+        switch(select)
+        {
+        case 1:
+            cout << "=== CAJA ACTIVA: ZONA Norte ===" << endl;
+            caja[0].mostrar();
+            break;
+        case 2:
+            cout << "=== CAJA ACTIVA: ZONA Sur ===" << endl;
+            caja[1].mostrar();
+            break;
+        case 3:
+            cout << "=== CAJA ACTIVA: ZONA Este ===" << endl;
+            caja[2].mostrar();
+            break;
+        case 4:
+            cout << "=== CAJA ACTIVA: ZONA Oeste ===" << endl;
+            caja[3].mostrar();
+            break;
+        default:
+            cout << "Opcion no valida" << endl;
+        }
+        string id;
+        cout << "Identificador del pedido a retirar: ";
+        cin >> id;
+        Quitar_pedido_pila(caja[select -1], id);
     }
 }
 
+void pizzeria::Quitar_pedido_pila(Pila& pila, string id)
+{
+    Pila aux = Pila();
+    bool existe_id = false;
+    Pedido cima_aux;
+
+    while(!pila.esVacia() && !existe_id)
+    {
+        if(id == pila.valorCima().id_pedido)
+        {
+            cima_aux = pila.valorCima();
+            cima_aux.estado = "Retirado";  //Establecemos el estado del pedido a "Retirado"
+            finalizados.encolar(cima_aux); //Y lo añadimos a la cola de finalizados
+            cout << "Pedido " << id << " retirado de la caja de la zona." << endl;
+
+            pila.desapilar(); //Eliminamos el pedido de la pila
+            existe_id = true; //Marcamos que ya lo hemos encontrado
+        }
+        else
+        {
+            aux.apilar(pila.valorCima());
+            pila.desapilar();
+        }
+    }
+    while(!aux.esVacia())
+    {
+        pila.apilar(aux.valorCima());
+        aux.desapilar();
+    }
+    if(!existe_id)
+        cout << "El pedido " << id << " no esta en la caja activa de la zona." << endl;
+    else
+        pedidos_fuera++; //Aumentamos el contador de pedidos fuera
+}
+
 //Muestra los pedidos finalizados (enviados y retirados)
-void pizzeria::mostrarFinalizados()
+void pizzeria::Mostrar_finalizados()
 {
     cout << "\n////////////////////////////////////////////FINALIZADOS////////////////////////////////////////////" << endl;
     finalizados.mostrar();
