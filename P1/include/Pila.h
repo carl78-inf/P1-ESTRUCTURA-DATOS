@@ -21,9 +21,6 @@ public:
     int getLongitud();
 
     void mostrar();
-
-    Pedido buscar(string id);
-    bool eliminar(string id);
 };
 
 #endif // PILA_H
