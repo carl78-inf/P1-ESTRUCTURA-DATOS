@@ -1,13 +1,13 @@
 #ifndef COLA_H
 #define COLA_H
 
-#include <NodoCola.h>
+#include <Nodo.h>
 
 //Definición de la clase Cola
 class Cola {
     private:
-        NodoCola *primero;  //Puntero al primer elemento
-        NodoCola *ultimo;   //Puntero al último elemento
+        Nodo *primero;  //Puntero al primer elemento
+        Nodo *ultimo;   //Puntero al último elemento
         int longitud;       //Longitud
     public:
         Cola();

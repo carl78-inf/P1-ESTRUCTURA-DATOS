@@ -1,12 +1,12 @@
 #ifndef PILA_H
 #define PILA_H
 
-#include "NodoPila.h"
+#include "Nodo.h"
 
 //Definición de la clase Cola
 class Pila {
     private:
-        NodoPila *cima; //Puntero a la cima de la pila
+        Nodo *cima; //Puntero a la cima de la pila
         int longitud;   //Longitud
     public:
         Pila();

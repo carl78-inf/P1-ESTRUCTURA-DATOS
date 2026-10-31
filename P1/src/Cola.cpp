@@ -17,7 +17,7 @@ bool Cola::es_vacia() {
 
 //Añadir un pedido al final de la cola
 void Cola::encolar(Pedido p) {
-    NodoCola *nuevo = new NodoCola(p); //Puntero a un nuevo nodo
+    Nodo *nuevo = new Nodo(p); //Puntero a un nuevo nodo
 
     //Si está vacía, los dos punteros apuntan al nuevo nodo
     if(es_vacia()) {
@@ -40,7 +40,7 @@ Pedido Cola::desencolar() {
 
     if(!es_vacia()) {
         Pedido elemento = primero->elemento; //elemento = pedido del inicio de la cola
-        NodoCola *aux = primero;             //Puntero auxiliar que apunta al primer nodo
+        Nodo *aux = primero;             //Puntero auxiliar que apunta al primer nodo
 
         //Si solo hay un elemento, ponemos todos los punteros a null y lo eliminamos
         if((primero == ultimo) && (primero->siguiente == NULL)) {
@@ -110,7 +110,7 @@ void Cola::mostrar() {
 
     //Si no está vacía, imprimimos cada elemento de la cola
     if(!es_vacia()) {
-        for (NodoCola* aux = primero; aux != NULL; aux = aux->siguiente) {
+        for (Nodo* aux = primero; aux != NULL; aux = aux->siguiente) {
             Pedido p = aux->elemento;
             print_pedido_tabla(p); cout << endl; //Imprimimos cada elemento
         }
