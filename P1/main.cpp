@@ -4,7 +4,8 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
     srand(time(NULL)); //Una vez en todo el programa para que funcione rand()
 
     pizzeria p; //Objeto pizzeria que incluye todos los atributos y métodos de nuestra simulación
@@ -12,7 +13,8 @@ int main() {
     int n;      //Entero para la opción de Generar N pedidos
     string id;  //Identificador de un pedido para la opción de Retirar un pedido de una caja activa
 
-    do {
+    do
+    {
         cout << endl;
         cout << "+--------------------------------------------------+" << endl;
         cout << "|          SIMULACION DE UNA PIZZERIA              |" << endl;
@@ -30,81 +32,90 @@ int main() {
 
         cin >> option;
 
-        switch (option) {
+        switch (option)
+        {
 
-            //Generar N pedidos
-            case 1:
-                cout << "Introduce el numero de pedidos a generar: ";
-                cin >> n;
-                if (n > 0) {
-                    p.generarPedidos(n);
-                    cout << n << " pedidos generados." << endl;
-                }
-                else {
-                    cout << "El numero debe ser mayor que 0" << endl;
-                }
+        //Generar N pedidos
+        case 1:
+            cout << "Introduce el numero de pedidos a generar: ";
+            cin >> n;
+            if (n > 0)
+            {
+                p.generarPedidos(n);
+                cout << n << " pedidos generados." << endl;
+            }
+            else
+            {
+                cout << "El numero debe ser mayor que 0" << endl;
+            }
+            break;
+
+        //Ejecutar un paso de la simulación
+        case 2:
+            p.ejecutarPasoEjecucion();
+            break;
+
+        //Mostrar estado del sistema
+        case 3:
+            p.mostrar();
+            break;
+
+        //Ver caja activa de la zona
+        case 4:
+            cout << "Zona (1=Norte, 2=Sur, 3=Este, 4=Oeste): ";
+            cin >> n;
+            if (n < 1 || n > ZONAS)
+            {
+                cout << "Zona no valida." << endl;
                 break;
-
-            //Ejecutar un paso de la simulación
-            case 2:
-                p.ejecutarPasoEjecucion();
+            }
+            if (p.ocupacionCaja(n) == 0)
+            {
+                cout << "Zona sin pedidos en la caja " << endl;
                 break;
+            }
+            p.verCajaActiva(n);
+            break;
 
-            //Mostrar estado del sistema
-            case 3:
-                p.mostrar();
+        //Retirar un pedido de una caja activa
+        case 5:
+            cout << "Zona (1=Norte, 2=Sur, 3=Este, 4=Oeste): ";
+            cin >> n;
+            if (n < 1 || n > ZONAS)
+            {
+                cout << "Zona no valida." << endl;
+            }
+            else if (p.ocupacionCaja(n) == 0)
+            {
+                cout << "Zona sin pedidos en la caja " << endl;
                 break;
-
-            //Ver caja activa de la zona
-            case 4:
-                cout << "Zona (1=Norte, 2=Sur, 3=Este, 4=Oeste): ";
-                cin >> n;
-                if (n < 1 || n > ZONAS) {
-                    cout << "Zona no valida." << endl;
-                    break;
-                }
-                if (p.ocupacionCaja(n) == 0) {
-                    cout << "Zona sin pedidos en la caja " << endl;
-                    break;
-                }
+            }
+            else
+            {
                 p.verCajaActiva(n);
-                break;
+                cout << "Identificador del pedido a retirar: ";
+                cin >> id;
+                p.retirarPedido(n, id);
+            }
+            break;
 
-            //Retirar un pedido de una caja activa
-            case 5:
-                cout << "Zona (1=Norte, 2=Sur, 3=Este, 4=Oeste): ";
-                cin >> n;
-                if (n < 1 || n > ZONAS) {
-                    cout << "Zona no valida." << endl;
-                }
-                else if (p.ocupacionCaja(n) == 0) {
-                    cout << "Zona sin pedidos en la caja " << endl;
-                    break;
-                }
-                else{
-                    p.verCajaActiva(n);
-                    cout << "Identificador del pedido a retirar: ";
-                    cin >> id;
-                    p.retirarPedido(n, id);
-                }
-                break;
+        //Mostrar pedidos finalizados
+        case 6:
+            p.mostrarFinalizados();
+            break;
 
-            //Mostrar pedidos finalizados
-            case 6:
-                p.mostrarFinalizados();
-                break;
+        //Salir
+        case 0:
+            cout << "Saliendo" << endl;
+            break;
 
-            //Salir
-            case 0:
-                cout << "Saliendo" << endl;
-                break;
-
-            //Caso base para opción no válida
-            default:
-                cout << "Opcion no valida." << endl;
+        //Caso base para opción no válida
+        default:
+            cout << "Opcion no valida." << endl;
         }
 
-    } while (option != 0);
+    }
+    while (option != 0);
 
     return 0;
 }

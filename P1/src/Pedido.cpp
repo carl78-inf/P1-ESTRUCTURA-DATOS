@@ -1,21 +1,27 @@
 #include "Pedido.h"
 
 //Genera un ID de pedido aleatorio
-string generarIDRandom() {
+string generarIDRandom()
+{
     string id = "P";
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 5; i++)
+    {
         id += ('0' + (rand() % 10)); //Genera un cáracter aleatorio entre '0' y '9'
     }
     return id;
 }
 
 //Genera un pedido aleatorio
-Pedido generarPedidoRandom(string id) {
+Pedido generarPedidoRandom(string id)
+{
     Pedido p; //Pedido a devolver
 
-    if(id == "") {
+    if(id == "")
+    {
         p.id_pedido = generarIDRandom(); //Generamos id aleatorio
-    } else {
+    }
+    else
+    {
         p.id_pedido = id; //Si le pasamos un id, se lo asignamos al pedido
     }
 
@@ -39,84 +45,93 @@ Pedido generarPedidoRandom(string id) {
 }
 
 //Compara el ID de dos pedidos y devuelve True si son iguales
-bool mismoID(Pedido p1, Pedido p2) {
+bool mismoID(Pedido p1, Pedido p2)
+{
     return p1.id_pedido == p2.id_pedido;
 }
 
 //Pasa el tipo enumerado TipoPizza a string
-string tipoPizzaToString(TipoPizza tipo){
+string tipoPizzaToString(TipoPizza tipo)
+{
     string resultado;
-    switch(tipo) {
-        case BARBACOA:
-            resultado = "Barbacoa";
-            break;
-        case MARGARITA:
-            resultado = "Margarita";
-            break;
-        case HAWAIANA:
-            resultado = "Hawaiana";
-            break;
-        case CUATRO_QUESOS:
-            resultado = "Cuatro Quesos";
-            break;
-        case VEGETAL:
-            resultado = "Vegetal";
-            break;
-        case ROMANA:
-            resultado = "Romana";
-            break;
-        defautl:
-            resultado = "NULL";
+    switch(tipo)
+    {
+    case BARBACOA:
+        resultado = "Barbacoa";
+        break;
+    case MARGARITA:
+        resultado = "Margarita";
+        break;
+    case HAWAIANA:
+        resultado = "Hawaiana";
+        break;
+    case CUATRO_QUESOS:
+        resultado = "Cuatro Quesos";
+        break;
+    case VEGETAL:
+        resultado = "Vegetal";
+        break;
+    case ROMANA:
+        resultado = "Romana";
+        break;
+    defautl:
+        resultado = "NULL";
     }
     return resultado;
 }
 
 //Pasa el tipo enumerado Tamano a string
-string tamanoToString(Tamano tamano){
+string tamanoToString(Tamano tamano)
+{
     string resultado;
-    switch(tamano) {
-        case MEDIANA:
-            resultado = "Mediana";
-            break;
-        case GRANDE:
-            resultado = "Grande";
-            break;
-        defautl:
-            resultado = "NULL";
+    switch(tamano)
+    {
+    case MEDIANA:
+        resultado = "Mediana";
+        break;
+    case GRANDE:
+        resultado = "Grande";
+        break;
+    defautl:
+        resultado = "NULL";
     }
     return resultado;
 }
 
 //Pasa el tipo enumerado Tamano a string
-string zonaRepartoToString(ZonaReparto zona){
+string zonaRepartoToString(ZonaReparto zona)
+{
     string resultado;
-    switch(zona) {
-        case ESTE:
-            resultado = "Este";
-            break;
-        case NORTE:
-            resultado = "Norte";
-            break;
-        case SUR:
-            resultado = "Sur";
-            break;
-        case OESTE:
-            resultado = "Oeste";
-            break;
-        defautl:
-            resultado = "NULL";
+    switch(zona)
+    {
+    case ESTE:
+        resultado = "Este";
+        break;
+    case NORTE:
+        resultado = "Norte";
+        break;
+    case SUR:
+        resultado = "Sur";
+        break;
+    case OESTE:
+        resultado = "Oeste";
+        break;
+    defautl:
+        resultado = "NULL";
     }
     return resultado;
 }
 
-//Imprime el pedido en modo simple --> id y tipo_pizza
-void print_pedido_simple(Pedido p) {
+//Imprime el pedido en modo simple para la pila --> id y tipo_pizza
+void printPedidoPila(Pedido p)
+{
     cout << "| " << p.id_pedido << " - "     //ID del pedido
          << tipoPizzaToString(p.tipo_pizza); //Tipo de pizza
 }
 
-//Imprime el pedido en formato de fila de una tabla
-void print_pedido_tabla(Pedido p) {
+//Imprime el pedido en formato de fila de una tabla para la cola
+void printPedidoCola(Pedido p)
+{
     cout << left << "| " << p.id_pedido                             //ID del pedido
          << " | " << setw(7) << p.id_cliente                        //ID del cliente
          << " | " << setw(13) << tipoPizzaToString(p.tipo_pizza)    //Tipo de pizza
